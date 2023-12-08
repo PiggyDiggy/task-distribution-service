@@ -9,3 +9,41 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Task {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  value       Int
+  status      TaskStatus @default(open)
+  scope       Scope
+  deadline    DateTime
+  executor    Employee?   @relation(fields: [executorId], references: [id])
+  executorId  String?
+}
+
+model Employee {
+  id    String @id @default(uuid())
+  name  String
+  photo String
+  label String
+  scope Scope
+  Task  Task[]
+}
+
+enum TaskStatus {
+  open
+  inProgress
+  closed
+}
+
+enum Scope {
+  design
+  frontend
+  backend
+  mobile
+  analytics
+  testing
+  managing
+  other
+}
