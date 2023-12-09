@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Employee, PrismaClient } from "@prisma/client";
+import { Employee } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import { Optional } from "@/types";
 
 export async function GET() {
   return NextResponse.json(await prisma.employee.findMany());
 }
 
 export async function POST(request: NextRequest) {
-  const employee: Employee = await request.json();
+  const employee: Optional<Employee, "id"> = await request.json();
 
-  const created = await prisma.employee.create({ data: employee });
-  return NextResponse.json(created);
-}
-
-export async function DELETE(request: NextRequest) {
-  const { id } = await request.json();
-
-  const deleted = await prisma.employee.delete({ where: { id } });
-  return NextResponse.json(deleted);
+  try {
+    delete employee.id;
+    const created = await prisma.employee.create({ data: employee });
+    return NextResponse.json(created, { status: 201 });
+  } catch {
+    return new NextResponse("Invalid data provided", { status: 400 });
+  }
 }

@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import { TaskStatus, PrismaClient, Task } from "@prisma/client";
+import { TaskStatus, Task } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
+import { Optional } from "@/types";
+
+function getTaskStatus(status: string | null) {
+  if (!status) {
+    return undefined;
+  }
+
+  return ["open", "inProgress", "closed"].includes(status) ? status : undefined;
+}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
   const tasks = await prisma.task.findMany({
     where: {
-      status: (searchParams.get("status") as TaskStatus) ?? undefined,
+      status: getTaskStatus(searchParams.get("status")) as TaskStatus,
       executorId: searchParams.get("executor") ?? undefined,
     },
   });
@@ -17,15 +26,13 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const task: Task = await request.json();
+  const task: Optional<Task, "id"> = await request.json();
 
-  const created = await prisma.task.create({ data: task });
-  return NextResponse.json(created);
-}
-
-export async function DELETE(request: NextRequest) {
-  const { id } = await request.json();
-
-  const deleted = await prisma.task.delete({ where: { id: Number(id) } });
-  return NextResponse.json(deleted);
+  try {
+    delete task.id;
+    const created = await prisma.task.create({ data: task });
+    return NextResponse.json(created, { status: 201 });
+  } catch {
+    return new NextResponse("Invalid data provided", { status: 400 });
+  }
 }
