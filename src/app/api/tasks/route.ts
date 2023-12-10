@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { TaskStatus, Task } from "@prisma/client";
 
@@ -31,6 +32,7 @@ export async function POST(request: NextRequest) {
   try {
     delete task.id;
     const created = await prisma.task.create({ data: task });
+    revalidateTag("tasks");
     return NextResponse.json(created, { status: 201 });
   } catch {
     return new NextResponse("Invalid data provided", { status: 400 });

@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { Employee } from "@prisma/client";
 
@@ -14,6 +15,7 @@ export async function POST(request: NextRequest) {
   try {
     delete employee.id;
     const created = await prisma.employee.create({ data: employee });
+    revalidateTag("staff");
     return NextResponse.json(created, { status: 201 });
   } catch {
     return new NextResponse("Invalid data provided", { status: 400 });

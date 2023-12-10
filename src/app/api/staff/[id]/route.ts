@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { Employee } from "@prisma/client";
 
@@ -10,6 +11,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
   try {
     const updated = await prisma.employee.update({ where: { id: params.id }, data });
+    revalidateTag("staff");
     return NextResponse.json(updated);
   } catch (e: any) {
     if (e.code === "P2025") {
@@ -22,6 +24,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
     await prisma.employee.delete({ where: { id: params.id } });
+    revalidateTag("staff");
     return new NextResponse(null, { status: 204 });
   } catch {
     return new NextResponse("Employee with provided id doesn't exist", { status: 404 });
