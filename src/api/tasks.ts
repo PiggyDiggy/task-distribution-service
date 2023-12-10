@@ -11,7 +11,7 @@ export function getTasks(params?: Record<string, any>) {
   });
 }
 
-export function createTask(task: Omit<Task, "id" | "status" | "executorId">) {
+export function createTask(task: Omit<Task, "id" | "status" | "executorId" | "createdAt">) {
   return method<Task>({
     path: getURL("tasks"),
     method: "POST",

@@ -21,16 +21,17 @@ export async function GET(request: NextRequest) {
       status: getTaskStatus(searchParams.get("status")) as TaskStatus,
       executorId: searchParams.get("executor") ?? undefined,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
   });
 
   return NextResponse.json(tasks);
 }
 
 export async function POST(request: NextRequest) {
-  const task: Optional<Task, "id"> = await request.json();
-
   try {
-    delete task.id;
+    const { id, createdAt, ...task }: Task = await request.json();
     const created = await prisma.task.create({ data: task });
     revalidateTag("tasks");
     return NextResponse.json(created, { status: 201 });

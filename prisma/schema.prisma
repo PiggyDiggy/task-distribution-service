@@ -18,8 +18,9 @@ model Task {
   status      TaskStatus @default(open)
   scope       Scope
   deadline    DateTime
-  executor    Employee?   @relation(fields: [executorId], references: [id])
+  executor    Employee?  @relation(fields: [executorId], references: [id])
   executorId  String?
+  createdAt   DateTime   @default(now())
 }
 
 model Employee {
