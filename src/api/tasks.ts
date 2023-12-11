@@ -5,6 +5,13 @@ export function getTasks(params?: Record<string, any>) {
   return method<Task[]>({
     path: getURL("tasks"),
     params,
+    process(response) {
+      return response.map(({ createdAt, deadline, ...rest }) => ({
+        deadline: new Date(deadline),
+        createdAt: new Date(createdAt),
+        ...rest,
+      }));
+    },
     fetchOptions: {
       next: { tags: ["tasks"] },
     },

@@ -1,0 +1,38 @@
+.task-widget {
+  display: flex;
+  flex-direction: column;
+  height: 280px;
+  width: 280px;
+  border-radius: 26px;
+  padding: 18px 22px;
+  background-color: var(--background-contrast);
+  color: white;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.task-widget__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.task-widget__description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+}
+
+.task-widget__bottom-row {
+  display: flex;
+  margin-top: auto;
+  justify-content: space-between;
+}
+
+.task-widget__value {
+  font-weight: bold;
+}
+
+.task-widget__deadline {
+  font-weight: 300;
+}

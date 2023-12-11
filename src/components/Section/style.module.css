@@ -1,0 +1,21 @@
+.section {
+  margin-bottom: 36px;
+}
+
+.title {
+  font-size: 3.2rem;
+  margin-bottom: 3.6rem;
+  color: white;
+}
+
+.title_left {
+  text-align: left;
+}
+
+.title_center {
+  text-align: center;
+}
+
+.title_right {
+  text-align: right;
+}

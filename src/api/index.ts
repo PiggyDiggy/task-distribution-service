@@ -5,17 +5,19 @@ export function getURL(path: string) {
   return `${origin}/api/${path}`;
 }
 
-export async function method<R>({
+export async function method<T, R = T>({
   path,
   method = "GET",
   body,
   params,
+  process,
   fetchOptions = {},
 }: {
   path: string;
   method?: RequestMethod;
   body?: Record<string, any>;
   params?: Record<string, any>;
+  process?: (response: T) => R;
   fetchOptions?: RequestInit;
 }): Promise<R> {
   const requestInit = { ...fetchOptions, method };
@@ -30,7 +32,8 @@ export async function method<R>({
   }
 
   if (response.headers.get("content-type") === "application/json") {
-    return response.json();
+    const json = await response.json();
+    return process?.(json) || json;
   }
 
   return null as R;

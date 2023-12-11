@@ -1,0 +1,23 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-background: #222831;
+  --background-contrast: #393e46;
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--main-background);
+  font-size: 1.6rem;
+}
+
+.container {
+  width: 100%;
+  padding: 0 36px;
+  margin: 0 auto;
+  max-width: 1500px;
+}
