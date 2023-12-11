@@ -1,11 +1,23 @@
 import { makeAutoObservable } from "mobx";
 import { Task } from "@prisma/client";
 
-export class TasksStore {
-  tasks: Task[];
+import { createCollection } from "@/lib/utils";
 
-  constructor(tasks: Task[]) {
-    this.tasks = tasks;
+import { RootStore } from "..";
+
+export class TasksStore {
+  openTasks: Map<number, Task>;
+  employeeTasks: Map<string, Task[]>;
+  rootStore: RootStore;
+
+  constructor(openTasks: Task[], employeeTasks: Map<string, Task[]>, rootStore: RootStore) {
+    this.rootStore = rootStore;
+    this.openTasks = createCollection(openTasks);
+    this.employeeTasks = employeeTasks;
     makeAutoObservable(this);
+  }
+
+  getEmployeeTasks(employeeId: string) {
+    return this.employeeTasks.get(employeeId) || [];
   }
 }

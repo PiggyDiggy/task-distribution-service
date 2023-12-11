@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,6 +9,9 @@
 :root {
   --main-background: #222831;
   --background-contrast: #393e46;
+  --background-lighter: #41474f;
+  --background-grey: #535d64;
+  --accent-color: #6c63ff;
   font-size: 62.5%;
 }
 

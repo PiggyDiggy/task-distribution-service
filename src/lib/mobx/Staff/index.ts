@@ -1,11 +1,18 @@
 import { makeAutoObservable } from "mobx";
 import { Employee } from "@prisma/client";
 
-export class StaffStore {
-  employees: Employee[];
+import { createCollection } from "@/lib/utils";
 
-  constructor(employees: Employee[]) {
-    this.employees = employees;
+import { RootStore } from "..";
+
+export class StaffStore {
+  employees: Map<string, Employee>;
+  rootStore: RootStore;
+
+  constructor(employees: Employee[], rootStore: RootStore) {
+    this.rootStore = rootStore;
+    this.employees = createCollection(employees);
+    
     makeAutoObservable(this);
   }
 }

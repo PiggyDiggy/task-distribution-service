@@ -11,9 +11,12 @@ export class RootStore {
   tasksStore: TasksStore;
   staffStore: StaffStore;
 
-  constructor(tasks: Task[], employees: Employee[]) {
-    this.tasksStore = new TasksStore(tasks);
-    this.staffStore = new StaffStore(employees);
+  constructor(tasks: Task[], employees: Employee[], employeeTasks: Task[][]) {
+    const employeeTasksCollection = employeeTasks.reduce((collection, tasks, i) => {
+      return collection.set(employees[i].id, tasks);
+    }, new Map<string, Task[]>());
+    this.tasksStore = new TasksStore(tasks, employeeTasksCollection, this);
+    this.staffStore = new StaffStore(employees, this);
     makeAutoObservable(this);
   }
 }

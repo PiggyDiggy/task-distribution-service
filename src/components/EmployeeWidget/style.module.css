@@ -1,0 +1,54 @@
+.employee {
+  --border-radius: 26px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-contrast);
+  border-radius: var(--border-radius);
+  min-height: 440px;
+  max-height: 600px;
+  width: 320px;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.employee__heading {
+  display: flex;
+  gap: 22px;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  background-color: var(--accent-color);
+  padding: 18px 22px;
+}
+
+.employee__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee__thumbnail {
+  flex-shrink: 0;
+  border-radius: 100%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.employee__name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.employee__label {
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.employee__tasks-count {
+  font-weight: bold;
+  margin-top: auto;
+}
+
+.employee__tasks {
+  padding: 24px 22px;
+}

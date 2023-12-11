@@ -1,0 +1,25 @@
+.content {
+  margin: 22px 18px;
+}
+
+.tasks {
+  margin-inline: 3px;
+  padding-inline: 15px;
+  overflow-y: overlay;
+  list-style-type: none;
+}
+
+.placeholder {
+  margin-top: 72px;
+}
+
+.placeholder__text {
+  margin-top: 14px;
+  margin-left: 12px;
+  font-style: italic;
+  font-weight: 300;
+}
+
+.placeholder__image {
+  width: 100%;
+}

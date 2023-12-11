@@ -8,16 +8,20 @@ import { EmployeesList } from "@/components/EmployeesList";
 import styles from "./page.module.css";
 
 export default async function Home() {
-  const [tasks, employees] = await Promise.all([getTasks(), getEmployees()]);
+  const [openTasks, employees] = await Promise.all([getTasks({ status: "open" }), getEmployees()]);
+  const employeeTasks = await Promise.all(
+    employees.map((employee) => getTasks({ executor: employee.id, status: "inProgress" }))
+  );
 
   return (
     <main className={styles.main}>
-      <RootStoreProvider tasks={tasks} employees={employees}>
-        <div className="container">
-          <Section title="Открытые задачи" align="center">
-            <TasksList />
-          </Section>
-        </div>
+      <RootStoreProvider openTasks={openTasks} employees={employees} employeeTasks={employeeTasks}>
+        <Section className="container" title="Открытые задачи" align="center">
+          <TasksList />
+        </Section>
+        <Section titleClassName="container" title="Сотрудники">
+          <EmployeesList />
+        </Section>
       </RootStoreProvider>
     </main>
   );
