@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { TaskStatus, Task } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
-import { Optional } from "@/types";
 
 function getTaskStatus(status: string | null) {
   if (!status) {
@@ -31,8 +30,22 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { id, createdAt, ...task }: Task = await request.json();
-    const created = await prisma.task.create({ data: task });
+    const { title, value, deadline, description, scopeName }: Task = await request.json();
+
+    const created = await prisma.task.create({
+      data: {
+        title,
+        value,
+        deadline,
+        description,
+        Scope: {
+          connectOrCreate: {
+            where: { name: scopeName },
+            create: { name: scopeName },
+          },
+        },
+      },
+    });
     revalidateTag("tasks");
     return NextResponse.json(created, { status: 201 });
   } catch {

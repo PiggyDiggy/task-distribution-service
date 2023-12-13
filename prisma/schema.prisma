@@ -16,7 +16,8 @@ model Task {
   description String
   value       Int
   status      TaskStatus @default(open)
-  scope       Scope
+  Scope       Scope      @relation(fields: [scopeName], references: [name])
+  scopeName   String
   deadline    DateTime
   executor    Employee?  @relation(fields: [executorId], references: [id])
   executorId  String?
@@ -24,27 +25,23 @@ model Task {
 }
 
 model Employee {
-  id    String @id @default(uuid())
-  name  String
-  photo String
-  label String
-  scope Scope
-  Task  Task[]
+  id        String @id @default(uuid())
+  name      String
+  photo     String
+  label     String
+  Scope     Scope  @relation(fields: [scopeName], references: [name])
+  scopeName String
+  Task      Task[]
+}
+
+model Scope {
+  name     String     @unique
+  Task     Task[]
+  Employee Employee[]
 }
 
 enum TaskStatus {
   open
   inProgress
   closed
-}
-
-enum Scope {
-  design
-  frontend
-  backend
-  mobile
-  analytics
-  testing
-  managing
-  other
 }
