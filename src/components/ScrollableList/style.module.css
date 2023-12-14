@@ -1,0 +1,60 @@
+.list {
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* Horizontal */
+
+.list_horizontal {
+  overflow-x: auto;
+  mask-image: linear-gradient(to right, transparent, white var(--fade-width)),
+    linear-gradient(to left, transparent, white var(--fade-width));
+  mask-size: calc(100% - var(--fade-width)) auto;
+  -webkit-mask-image: linear-gradient(to right, transparent, white var(--fade-width)),
+    linear-gradient(to left, transparent, white var(--fade-width));
+  -webkit-mask-size: calc(100% - var(--fade-width)) auto;
+  -webkit-mask-position-x: calc(var(--fade-width) * -1), calc(100% + var(--fade-width));
+}
+
+.list_horizontal.list_scrollable {
+  -webkit-mask-position-x: calc(var(--fade-width) * -1), 100%;
+  transition: -webkit-mask-position-x 0.2s ease-out;
+}
+
+.list_horizontal.list_scrolled {
+  -webkit-mask-position-x: 0, calc(100% + var(--fade-width));
+  transition: -webkit-mask-position-x 0.2s ease-out;
+}
+
+.list_horizontal.list_scrollable.list_scrolled {
+  -webkit-mask-position-x: 0, 100%;
+  transition: -webkit-mask-position-x 0.2s ease-out;
+}
+
+/* Vertical */
+
+.list_vertical {
+  overflow-y: auto;
+  mask-image: linear-gradient(to bottom, transparent, white var(--fade-width)),
+    linear-gradient(to top, transparent, white var(--fade-width));
+  mask-size: auto calc(100% - var(--fade-width));
+  -webkit-mask-image: linear-gradient(to bottom, transparent, white var(--fade-width)),
+    linear-gradient(to top, transparent, white var(--fade-width));
+  -webkit-mask-size: auto calc(100% - var(--fade-width));
+  -webkit-mask-position-y: calc(var(--fade-width) * -1), calc(100% + var(--fade-width));
+}
+
+.list_vertical.list_scrollable {
+  -webkit-mask-position-y: calc(var(--fade-width) * -1), 100%;
+  transition: -webkit-mask-position-y 0.2s ease-out;
+}
+
+.list_vertical.list_scrolled {
+  -webkit-mask-position-y: 0, calc(100% + var(--fade-width));
+  transition: -webkit-mask-position-y 0.2s ease-out;
+}
+
+.list_vertical.list_scrollable.list_scrolled {
+  -webkit-mask-position-y: 0, 100%;
+  transition: -webkit-mask-position-y 0.2s ease-out;
+}

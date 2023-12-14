@@ -6,6 +6,7 @@ import { cx } from "@/lib/utils";
 import tasksPlaceholder from "@/assets/tasks-placeholder.svg";
 
 import { TaskSnippet } from "../TaskSnippet";
+import { ScrollableList } from "../ScrollableList";
 
 import style from "./style.module.css";
 
@@ -24,10 +25,10 @@ export const EmployeeTasks: React.FC<Props> = ({ tasks }) => {
   }
 
   return (
-    <ul className={cx(style.content, style.tasks)}>
+    <ScrollableList className={cx(style.content, style.tasks)}>
       {tasks.map((task) => (
         <TaskSnippet key={task.id} task={task} />
       ))}
-    </ul>
+    </ScrollableList>
   );
 };

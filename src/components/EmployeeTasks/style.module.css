@@ -5,7 +5,6 @@
 .tasks {
   margin-inline: 3px;
   padding-inline: 15px;
-  overflow-y: overlay;
   list-style-type: none;
 }
 
