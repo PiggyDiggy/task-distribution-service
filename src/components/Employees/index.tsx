@@ -8,18 +8,29 @@ import { cx } from "@/lib/utils";
 
 import { EmployeeWidget } from "../EmployeeWidget";
 import { ScrollableList } from "../ScrollableList";
+import { AddButton } from "../AddButton";
 
 import style from "./style.module.css";
 
-export const EmployeesList = observer(function EmployeesList() {
+const EmployeesList: React.FC<React.PropsWithChildren> = observer(function EmployeesList({ children }) {
   const { staffStore } = useStore();
-  const employees = [...staffStore.employees.values()];
 
   return (
     <ScrollableList className={cx(style["employees-list"], "container")} direction="horizontal">
-      {employees.map((employee) => (
+      {staffStore.employeesList.map((employee) => (
         <EmployeeWidget employee={employee} key={employee.id} />
       ))}
+      {children}
     </ScrollableList>
   );
 });
+
+export const Employees = () => {
+  return (
+    <>
+      <EmployeesList>
+        <AddButton onClick={() => {}} />
+      </EmployeesList>
+    </>
+  );
+};

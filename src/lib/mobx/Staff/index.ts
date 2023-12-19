@@ -12,7 +12,11 @@ export class StaffStore {
   constructor(employees: Employee[], rootStore: RootStore) {
     this.rootStore = rootStore;
     this.employees = createCollection(employees);
-    
+
     makeAutoObservable(this);
+  }
+
+  get employeesList() {
+    return [...this.employees.values()];
   }
 }

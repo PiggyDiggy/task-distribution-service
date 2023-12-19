@@ -20,4 +20,8 @@ export class TasksStore {
   getEmployeeTasks(employeeId: string) {
     return this.employeeTasks.get(employeeId) || [];
   }
+
+  get openTasksList() {
+    return [...this.openTasks.values()];
+  }
 }

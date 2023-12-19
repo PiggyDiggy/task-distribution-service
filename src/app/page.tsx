@@ -2,9 +2,9 @@ import { getTasks } from "@/api/tasks";
 import { getEmployees } from "@/api/staff";
 import { getScopes } from "@/api/scope";
 import { RootStoreProvider } from "@/lib/mobx/provider";
-import { TasksList } from "@/components/TasksList";
+import { Tasks } from "@/components/Tasks";
 import { Section } from "@/components/Section";
-import { EmployeesList } from "@/components/EmployeesList";
+import { Employees } from "@/components/Employees";
 
 import styles from "./page.module.css";
 
@@ -18,10 +18,10 @@ export default async function Home() {
     <main className={styles.main}>
       <RootStoreProvider openTasks={openTasks} employees={employees} employeeTasks={employeeTasks} scopes={scopes}>
         <Section className="container" title="Открытые задачи" align="center">
-          <TasksList />
+          <Tasks />
         </Section>
         <Section titleClassName="container" title="Сотрудники">
-          <EmployeesList />
+          <Employees />
         </Section>
       </RootStoreProvider>
     </main>

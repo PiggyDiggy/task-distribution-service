@@ -3,19 +3,31 @@
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "@/lib/mobx/provider";
+
 import { TaskWidget } from "../TaskWidget";
+import { AddButton } from "../AddButton";
 
 import style from "./style.module.css";
 
-export const TasksList = observer(function TasksList() {
+const TasksList: React.FC<React.PropsWithChildren> = observer(function TasksList({ children }) {
   const { tasksStore } = useStore();
-  const tasks = [...tasksStore.openTasks.values()];
 
   return (
     <ul className={style["tasks-list"]}>
-      {tasks.map((task) => (
+      {tasksStore.openTasksList.map((task) => (
         <TaskWidget key={task.id} task={task} />
       ))}
+      {children}
     </ul>
   );
 });
+
+export const Tasks = () => {
+  return (
+    <>
+      <TasksList>
+        <AddButton onClick={() => {}} />
+      </TasksList>
+    </>
+  );
+};
