@@ -1,0 +1,4 @@
+.modal {
+  --field-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.1);
+  min-width: 600px;
+}

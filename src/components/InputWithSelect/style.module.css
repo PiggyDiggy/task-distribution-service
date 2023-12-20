@@ -1,0 +1,44 @@
+.wrapper {
+  position: relative;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  font: inherit;
+  background-color: var(--background-lighter);
+  border: none;
+  padding: 18px 56px 18px 24px;
+  color: white;
+  border-radius: 12px;
+  box-shadow: var(--field-shadow);
+  transition: background-color 0.2s ease-out;
+}
+
+.input:hover {
+  background-color: var(--background-lighter-hover);
+}
+
+.input:focus {
+  outline-color: transparent;
+  outline-width: 0;
+  border: none;
+  background-color: var(--background-lighter-hover);
+}
+
+.input_disabled {
+  cursor: pointer;
+  caret-color: transparent;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 22px;
+  right: 24px;
+  pointer-events: none;
+  transition: transform 0.1s ease-out;
+}
+
+.arrow-icon_reversed {
+  transform: rotateX(180deg);
+}

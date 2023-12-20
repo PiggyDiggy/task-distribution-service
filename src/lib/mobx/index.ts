@@ -21,4 +21,8 @@ export class RootStore {
     this.scopes = scopes;
     makeAutoObservable(this);
   }
+
+  get scopeNames() {
+    return this.scopes.map((scope) => scope.name);
+  }
 }

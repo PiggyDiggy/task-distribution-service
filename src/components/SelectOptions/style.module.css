@@ -1,0 +1,31 @@
+.options {
+  list-style-type: none;
+  background-color: var(--background-lighter);
+  border-radius: 12px;
+  box-shadow: var(--field-shadow);
+  border: none;
+  padding-block: 10px;
+  color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 8px);
+}
+
+.option {
+  padding: 8px 24px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+}
+
+.option:hover {
+  background-color: var(--background-grey);
+}
+
+.option_selected {
+  background-color: var(--accent-color);
+}
+
+.option_selected:hover {
+  background-color: hsl(243deg, 100%, 74%);
+}
