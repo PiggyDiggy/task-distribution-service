@@ -10,15 +10,12 @@ import { SelectOptions } from "../SelectOptions";
 
 import style from "./style.module.css";
 
-type Props = {
-  options: string[];
-  editable?: boolean;
-};
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-const Input = observer(() => {
+const Input: React.FC<InputProps> = observer((props) => {
   const {
-    uiStore: { inputValue, isOpen, setInputValue, toggleIsOpen },
-    domainStore: { editable },
+    uiStore: { inputValue, isOpen, setInputValue, setIsOpen },
+    domainStore: { editable, options },
   } = useSelectInputStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,32 +25,60 @@ const Input = observer(() => {
     }
   }, [isOpen]);
 
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const target = e.target as HTMLInputElement;
+    isOpen ? target.blur() : target.focus();
+  };
+
   return (
     <>
       <input
         ref={inputRef}
-        onClick={toggleIsOpen}
-        className={cx(style.input, { [style.input_disabled]: !editable })}
-        type="text"
+        onMouseDown={handleMouseDown}
+        onFocus={() => setIsOpen(true)}
+        onBlur={() => setIsOpen(false)}
+        className={cx(style.input, {
+          [style.input_disabled]: !editable,
+          [style["input_with-options"]]: options.length > 0,
+        })}
         value={inputValue}
         onChange={editable ? (e) => setInputValue(e.target.value) : undefined}
+        readOnly={!editable}
+        {...props}
       />
-      <Image
-        className={cx(style["arrow-icon"], { [style["arrow-icon_reversed"]]: isOpen })}
-        src={arrowIcon}
-        alt="arrow"
-        height={13}
-        width={22}
-      />
+      {options.length > 0 && (
+        <Image
+          className={cx(style["arrow-icon"], {
+            [style["arrow-icon_reversed"]]: isOpen,
+          })}
+          src={arrowIcon}
+          alt="arrow"
+          height={13}
+          width={22}
+        />
+      )}
     </>
   );
 });
 
-export const InputWithSelect: React.FC<Props> = ({ options, editable = true }) => {
+type Props = {
+  options: string[];
+  editable?: boolean;
+  className?: string;
+  label?: string;
+  inputProps?: InputProps;
+};
+
+export const InputWithSelect: React.FC<Props> = ({ options, className, label, inputProps, editable = true }) => {
   return (
     <SelectInputStoreContext options={options} editable={editable}>
-      <div className={style.wrapper}>
-        <Input />
+      <div className={cx(className, style.wrapper)}>
+        <label>
+          {label && <span className={style.input__label}>{label}</span>}
+          <Input {...inputProps} />
+        </label>
         <SelectOptions />
       </div>
     </SelectInputStoreContext>

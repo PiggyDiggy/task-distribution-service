@@ -1,6 +1,6 @@
 .options {
   list-style-type: none;
-  background-color: var(--background-lighter);
+  background-color: var(--background-lighter-hover);
   border-radius: 12px;
   box-shadow: var(--field-shadow);
   border: none;
@@ -10,6 +10,7 @@
   left: 0;
   right: 0;
   top: calc(100% + 8px);
+  z-index: 5;
 }
 
 .option {
@@ -27,5 +28,5 @@
 }
 
 .option_selected:hover {
-  background-color: hsl(243deg, 100%, 74%);
+  background-color: var(--accent-hover);
 }

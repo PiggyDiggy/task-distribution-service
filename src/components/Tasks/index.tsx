@@ -7,9 +7,13 @@ import { useModalState } from "@/hooks/useModalState";
 
 import { TaskWidget } from "../TaskWidget";
 import { AddButton } from "../AddButton";
-import { CreateTaskModal } from "../CreateTaskModal";
 
 import style from "./style.module.css";
+import dynamic from "next/dynamic";
+
+const CreateTaskModal = dynamic(() => import("../CreateTaskModal").then((module) => module.CreateTaskModal), {
+  ssr: false,
+});
 
 const TasksList: React.FC<React.PropsWithChildren> = observer(function TasksList({ children }) {
   const { tasksStore } = useStore();

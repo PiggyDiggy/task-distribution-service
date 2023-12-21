@@ -13,6 +13,8 @@
   --background-lighter-hover: #454b54;
   --background-grey: #535d64;
   --accent-color: #6c63ff;
+  --accent-hover: #817aff;
+  --text-muted: #999999;
   font-size: 62.5%;
 }
 
@@ -26,4 +28,10 @@ body {
   padding: 0 36px;
   margin: 0 auto;
   max-width: 1500px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }

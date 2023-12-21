@@ -26,12 +26,7 @@ export class UIStore {
 
     if (!newState) {
       this.parentStore.domainStore.setFilter("");
-      this.selectedIndex = 0;
     }
-  };
-
-  toggleIsOpen = () => {
-    this.setIsOpen(!this.isOpen);
   };
 
   selectNext = () => {

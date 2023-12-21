@@ -6,9 +6,10 @@
   display: block;
   width: 100%;
   font: inherit;
+  text-align: inherit;
   background-color: var(--background-lighter);
   border: none;
-  padding: 18px 56px 18px 24px;
+  padding: 18px 24px;
   color: white;
   border-radius: 12px;
   box-shadow: var(--field-shadow);
@@ -31,9 +32,13 @@
   caret-color: transparent;
 }
 
+.input_with-options {
+  padding-right: 56px;
+}
+
 .arrow-icon {
   position: absolute;
-  top: 22px;
+  bottom: 21px;
   right: 24px;
   pointer-events: none;
   transition: transform 0.1s ease-out;
@@ -41,4 +46,11 @@
 
 .arrow-icon_reversed {
   transform: rotateX(180deg);
+}
+
+.input__label {
+  display: block;
+  color: white;
+  font-weight: 300;
+  margin-bottom: 8px;
 }

@@ -34,6 +34,5 @@ export class DomainStore {
       option || this.filteredOptions[this.parentStore.uiStore.selectedIndex] || this.parentStore.uiStore.inputValue
     );
     this.parentStore.uiStore.setIsOpen(false);
-    this.filter = "";
   };
 }

@@ -1,4 +1,32 @@
-.modal {
+div.modal {
   --field-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.1);
   min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.textarea-description {
+  min-height: 160px;
+}
+
+.scope-select {
+  margin-bottom: 24px;
+}
+
+.value-select {
+  width: 160px;
+}
+
+.modal__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.deadline {
+  text-align: center;
+}
+
+.button {
+  margin-top: 36px;
 }

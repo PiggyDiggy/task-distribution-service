@@ -9,10 +9,13 @@ import style from "./style.module.css";
 type Props = React.PropsWithChildren<{
   isOpen: boolean;
   onClose(): void;
-  className?: string;
 }>;
 
-export const Modal: React.FC<Props> = ({ children, isOpen, onClose, className }) => {
+type Component = React.FC<Props> & {
+  Dialog: React.FC<DialogProps>;
+};
+
+export const Modal: Component = ({ children, isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -33,11 +36,19 @@ export const Modal: React.FC<Props> = ({ children, isOpen, onClose, className })
         >
           <div ref={modalRef} className={style.modal}>
             <div className={style.backdrop} onClick={onClose}></div>
-            <div className={cx(style.dialog, className)}>{children}</div>
+            {children}
           </div>
         </CSSTransition>,
         document.querySelector("#modal") as HTMLElement
       )}
     </>
   );
+};
+
+type DialogProps = React.PropsWithChildren<{
+  className?: string;
+}>;
+
+Modal.Dialog = ({ children, className }) => {
+  return <div className={cx(style.dialog, className)}>{children}</div>;
 };

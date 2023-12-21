@@ -29,14 +29,14 @@ export const SelectOptions = observer(() => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [selectNext, selectNext, selectOption, isOpen]);
+  }, [selectNext, selectPrev, selectOption, isOpen]);
 
   if (filteredOptions.length === 0 || !isOpen) {
     return null;
   }
 
   return (
-    <ul className={style.options} role="listbox">
+    <ul className={style.options} role="listbox" onMouseDown={(e) => e.preventDefault()}>
       {filteredOptions.map((option, i) => (
         <li
           onClick={() => selectOption(option)}
