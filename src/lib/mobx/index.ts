@@ -29,13 +29,21 @@ export class RootStore {
     return this.scopes.map((scope) => scope.name);
   }
 
+  addScope(name: string) {
+    if (!this.scopes.find((scope) => scope.name === name)) {
+      this.scopes.push({ name });
+    }
+  }
+
   *createTask(task: CreateTaskBody): Generator<Promise<Task>, void, Task> {
     const newTask = yield createTask(task);
     this.tasksStore.addTask(newTask);
+    this.addScope(newTask.scopeName);
   }
 
   *createEmployee(employee: CreateEmployeeBody): Generator<Promise<Employee>, void, Employee> {
     const newEmployee = yield createEmployee(employee);
     this.staffStore.addEmployee(newEmployee);
+    this.addScope(employee.scopeName);
   }
 }
