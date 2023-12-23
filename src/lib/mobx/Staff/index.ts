@@ -17,7 +17,11 @@ export class StaffStore {
   }
 
   get employeesList() {
-    return [...this.employees.values()];
+    return [...this.employees.keys()];
+  }
+
+  getEmployee(employeeId: string) {
+    return this.employees.get(employeeId) as NonNullable<Employee>;
   }
 
   addEmployee(newEmployee: Employee) {

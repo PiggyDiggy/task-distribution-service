@@ -23,7 +23,11 @@ export class TasksStore {
   }
 
   get openTasksList() {
-    return [...this.openTasks.values()];
+    return [...this.openTasks.keys()];
+  }
+
+  getTask(taskId: number) {
+    return this.openTasks.get(taskId) as NonNullable<Task>;
   }
 
   addTask(newTask: Task) {

@@ -23,8 +23,8 @@ const EmployeesList = observer(function EmployeesList() {
 
   return (
     <>
-      {staffStore.employeesList.map((employee) => (
-        <EmployeeWidget employee={employee} key={employee.id} />
+      {staffStore.employeesList.map((employeeId) => (
+        <EmployeeWidget employee={staffStore.getEmployee(employeeId)} key={employeeId} />
       ))}
     </>
   );

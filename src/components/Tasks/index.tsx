@@ -20,8 +20,8 @@ const TasksList = observer(function TasksList() {
 
   return (
     <>
-      {tasksStore.openTasksList.map((task) => (
-        <TaskWidget key={task.id} task={task} />
+      {tasksStore.openTasksList.map((taskId) => (
+        <TaskWidget key={taskId} task={tasksStore.getTask(taskId)} />
       ))}
     </>
   );
