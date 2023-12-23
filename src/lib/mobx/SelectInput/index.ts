@@ -7,8 +7,8 @@ export class SelectInputStore {
   domainStore: DomainStore;
   uiStore: UIStore;
 
-  constructor(options: string[], editable: boolean) {
-    this.domainStore = new DomainStore(options, editable, this);
+  constructor(options: string[]) {
+    this.domainStore = new DomainStore(options, this);
     this.uiStore = new UIStore(this);
     makeAutoObservable(this);
   }

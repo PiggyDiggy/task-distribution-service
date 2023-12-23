@@ -6,13 +6,10 @@ import { SelectInputStore } from ".";
 
 const StoreContext = React.createContext<SelectInputStore>({} as SelectInputStore);
 
-type ProviderProps = React.PropsWithChildren<{
-  options: string[];
-  editable: boolean;
-}>;
+type ProviderProps = React.PropsWithChildren<{ options: string[] }>;
 
-export const SelectInputStoreContext: React.FC<ProviderProps> = ({ children, options, editable }) => {
-  return <StoreContext.Provider value={new SelectInputStore(options, editable)}>{children}</StoreContext.Provider>;
+export const SelectInputStoreContext: React.FC<ProviderProps> = ({ children, options }) => {
+  return <StoreContext.Provider value={new SelectInputStore(options)}>{children}</StoreContext.Provider>;
 };
 
 export const useSelectInputStore = () => useContext(StoreContext);

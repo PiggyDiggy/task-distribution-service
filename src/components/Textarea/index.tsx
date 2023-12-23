@@ -8,9 +8,10 @@ type Props = {
   placeholder?: string;
   className?: string;
   name?: string;
+  required?: boolean;
 };
 
-export const Textarea: React.FC<Props> = ({ className, placeholder = "", name }) => {
+export const Textarea: React.FC<Props> = ({ className, placeholder = "", name, required }) => {
   const [value, setValue] = useState("");
   const ref = useRef<HTMLTextAreaElement>(null);
 
@@ -30,6 +31,7 @@ export const Textarea: React.FC<Props> = ({ className, placeholder = "", name })
         className={cx(style.textarea, className)}
         ref={ref}
         name={name}
+        required={required}
       ></textarea>
       <span className={cx(style.placeholder, { [style.placeholder_hidden]: value })}>{placeholder}</span>
     </div>

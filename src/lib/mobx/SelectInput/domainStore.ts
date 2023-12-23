@@ -5,15 +5,13 @@ import { SelectInputStore } from ".";
 export class DomainStore {
   filter: string;
   options: string[];
-  editable: boolean;
   private parentStore: SelectInputStore;
 
-  constructor(options: string[], editable: boolean, parentStore: SelectInputStore) {
+  constructor(options: string[], parentStore: SelectInputStore) {
     this.options = options;
     this.filter = "";
-    this.editable = editable;
     this.parentStore = parentStore;
-    makeAutoObservable(this, { editable: false, options: false });
+    makeAutoObservable(this, { options: false });
   }
 
   get filteredOptions() {

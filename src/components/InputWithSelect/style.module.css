@@ -27,9 +27,8 @@
   background-color: var(--background-lighter-hover);
 }
 
-.input_disabled {
+.input[readonly] {
   cursor: pointer;
-  caret-color: transparent;
 }
 
 .input_with-options {

@@ -15,7 +15,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 const Input: React.FC<InputProps> = observer((props) => {
   const {
     uiStore: { inputValue, isOpen, setInputValue, setIsOpen },
-    domainStore: { editable, options },
+    domainStore: { options },
   } = useSelectInputStore();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -40,12 +40,10 @@ const Input: React.FC<InputProps> = observer((props) => {
         onFocus={() => setIsOpen(true)}
         onBlur={() => setIsOpen(false)}
         className={cx(style.input, {
-          [style.input_disabled]: !editable,
           [style["input_with-options"]]: options.length > 0,
         })}
         value={inputValue}
-        onChange={editable ? (e) => setInputValue(e.target.value) : undefined}
-        readOnly={!editable}
+        onChange={(e) => setInputValue(e.target.value)}
         {...props}
       />
       {options.length > 0 && (
@@ -64,16 +62,15 @@ const Input: React.FC<InputProps> = observer((props) => {
 });
 
 type Props = {
-  options: string[];
-  editable?: boolean;
+  options?: string[];
   className?: string;
   label?: string;
   inputProps?: InputProps;
 };
 
-export const InputWithSelect: React.FC<Props> = ({ options, className, label, inputProps, editable = true }) => {
+export const InputWithSelect: React.FC<Props> = ({ options = [], className, label, inputProps }) => {
   return (
-    <SelectInputStoreContext options={options} editable={editable}>
+    <SelectInputStoreContext options={options}>
       <div className={cx(className, style.wrapper)}>
         <label>
           {label && <span className={style.input__label}>{label}</span>}
