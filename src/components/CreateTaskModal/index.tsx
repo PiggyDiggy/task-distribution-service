@@ -17,6 +17,8 @@ type Props = {
   onClose(): void;
 };
 
+const valueOptions = [1, 2, 4, 8, 16].map((value) => pluralize(value, "балл", "балла", "баллов"));
+
 export const CreateTaskModal: React.FC<Props> = observer(({ isOpen, onClose }) => {
   const { scopeNames, createTask } = useStore();
 
@@ -37,21 +39,26 @@ export const CreateTaskModal: React.FC<Props> = observer(({ isOpen, onClose }) =
       />
       <InputWithSelect
         className={style["scope-select"]}
-        inputProps={{ type: "text", name: "scopeName", autoComplete: "off" }}
         options={scopeNames}
         label="Область деятельности"
+        type="text"
+        name="scopeName"
+        autoComplete="off"
       />
       <div className={style.modal__row}>
         <InputWithSelect
           className={style["value-select"]}
-          options={[1, 2, 4, 8, 16].map((value) => pluralize(value, "балл", "балла", "баллов"))}
+          options={valueOptions}
           label="Значимость"
-          inputProps={{ name: "value", readOnly: true }}
+          name="value"
+          readOnly
         />
         <InputWithSelect
           className={style.deadline}
-          inputProps={{ type: "date", name: "deadline", required: true }}
           label="Срок выполнения"
+          type="date"
+          name="deadline"
+          required
         />
       </div>
     </FormModal>

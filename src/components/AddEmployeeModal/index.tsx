@@ -27,9 +27,11 @@ export const AddEmployeeModal: React.FC<Props> = ({ isOpen, onClose }) => {
       <Textarea placeholder="Имя фамилия" name="name" required />
       <Textarea placeholder="Должность" name="label" required />
       <InputWithSelect
-        inputProps={{ type: "text", name: "scopeName", autoComplete: "off" }}
         options={scopeNames}
         label="Область деятельности"
+        type="text"
+        name="scopeName"
+        autoComplete="off"
       />
     </FormModal>
   );

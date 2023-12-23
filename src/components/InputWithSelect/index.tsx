@@ -65,10 +65,9 @@ type Props = {
   options?: string[];
   className?: string;
   label?: string;
-  inputProps?: InputProps;
-};
+} & InputProps;
 
-export const InputWithSelect: React.FC<Props> = ({ options = [], className, label, inputProps }) => {
+export const InputWithSelect: React.FC<Props> = React.memo(({ options = [], className, label, ...inputProps }) => {
   return (
     <SelectInputStoreContext options={options}>
       <div className={cx(className, style.wrapper)}>
@@ -80,4 +79,4 @@ export const InputWithSelect: React.FC<Props> = ({ options = [], className, labe
       </div>
     </SelectInputStoreContext>
   );
-};
+});
