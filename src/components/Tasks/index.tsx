@@ -15,16 +15,15 @@ const CreateTaskModal = dynamic(() => import("../CreateTaskModal").then((module)
   ssr: false,
 });
 
-const TasksList: React.FC<React.PropsWithChildren> = observer(function TasksList({ children }) {
+const TasksList = observer(function TasksList() {
   const { tasksStore } = useStore();
 
   return (
-    <ul className={style["tasks-list"]}>
+    <>
       {tasksStore.openTasksList.map((task) => (
         <TaskWidget key={task.id} task={task} />
       ))}
-      {children}
-    </ul>
+    </>
   );
 });
 
@@ -33,9 +32,10 @@ export const Tasks = () => {
 
   return (
     <>
-      <TasksList>
+      <ul className={style["tasks-list"]}>
+        <TasksList />
         <AddButton onClick={openModal} />
-      </TasksList>
+      </ul>
       <CreateTaskModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
