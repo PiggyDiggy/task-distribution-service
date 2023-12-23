@@ -13,7 +13,7 @@ export class StaffStore {
     this.rootStore = rootStore;
     this.employees = createCollection(employees);
 
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   get employeesList() {

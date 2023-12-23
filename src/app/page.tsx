@@ -5,6 +5,7 @@ import { RootStoreProvider } from "@/lib/mobx/provider";
 import { Tasks } from "@/components/Tasks";
 import { Section } from "@/components/Section";
 import { Employees } from "@/components/Employees";
+import { DistributeButton } from "@/components/DistributeButton";
 
 import styles from "./page.module.css";
 
@@ -23,6 +24,7 @@ export default async function Home() {
         <Section titleClassName="container" title="Сотрудники">
           <Employees />
         </Section>
+        <DistributeButton />
       </RootStoreProvider>
     </main>
   );

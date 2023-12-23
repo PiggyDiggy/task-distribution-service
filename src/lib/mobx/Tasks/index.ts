@@ -15,7 +15,8 @@ export class TasksStore {
     this.rootStore = rootStore;
     this.openTasks = createCollection(openTasks);
     this.employeeTasks = employeeTasks;
-    makeAutoObservable(this);
+
+    makeAutoObservable(this, {}, { autoBind: true });
   }
 
   getEmployeeTasks(employeeId: string) {

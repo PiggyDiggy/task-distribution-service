@@ -2,8 +2,10 @@ import { makeAutoObservable } from "mobx";
 import { Employee, Scope, Task } from "@prisma/client";
 import { enableStaticRendering } from "mobx-react-lite";
 
-import { CreateTaskBody, createTask } from "@/api/tasks";
+import { CreateTaskBody, createTask, patchTask } from "@/api/tasks";
 import { CreateEmployeeBody, createEmployee } from "@/api/staff";
+
+import { getScopeMap } from "../utils";
 
 import { TasksStore } from "./Tasks";
 import { StaffStore } from "./Staff";
@@ -45,5 +47,38 @@ export class RootStore {
     const newEmployee = yield createEmployee(employee);
     this.staffStore.addEmployee(newEmployee);
     this.addScope(employee.scopeName);
+  }
+
+  distributeTasks() {
+    const scopeTasks = getScopeMap(this.tasksStore.openTasksList, this.tasksStore.getTask);
+    const scopeEmployees = getScopeMap(this.staffStore.employeesList, this.staffStore.getEmployee);
+
+    scopeTasks.forEach((tasks, scope) => {
+      const employees = scopeEmployees.get(scope);
+      if (!employees) return;
+
+      const tasksCountPerEmployee = Math.floor(tasks.length / employees.length) || 1;
+
+      let currentEmployeeIndex = 0;
+      for (let i = 0; i < tasks.length; i++) {
+        if (i > 0 && i % tasksCountPerEmployee === 0 && currentEmployeeIndex < employees.length - 1) {
+          currentEmployeeIndex++;
+        }
+        this.assignTaskToEmployee(tasks[i], employees[currentEmployeeIndex]);
+      }
+    });
+  }
+
+  *assignTaskToEmployee(task: Task, employee: Employee) {
+    task.executorId = employee.id;
+
+    if (!this.tasksStore.employeeTasks.has(employee.id)) {
+      this.tasksStore.employeeTasks.set(employee.id, []);
+    }
+    this.tasksStore.employeeTasks.get(employee.id)!.push(task);
+
+    this.tasksStore.openTasks.delete(task.id);
+
+    yield patchTask(task.id, { executorId: employee.id, status: "inProgress" });
   }
 }
