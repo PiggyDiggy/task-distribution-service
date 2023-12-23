@@ -8,9 +8,23 @@ export async function GET() {
   return NextResponse.json(await prisma.employee.findMany());
 }
 
+type UnsplashResponse = {
+  urls: {
+    thumb: string;
+  };
+};
+
+async function getUnsplashRandomPhoto() {
+  const response = await fetch("https://api.unsplash.com/photos/random", {
+    headers: { Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}` },
+  });
+  return (await response.json() as UnsplashResponse).urls.thumb;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const { label, photo, name, scopeName }: Employee = await request.json();
+    const photo = await getUnsplashRandomPhoto();
+    const { label, name, scopeName }: Employee = await request.json();
 
     const created = await prisma.employee.create({
       data: {

@@ -2,7 +2,9 @@
 
 import React from "react";
 import { observer } from "mobx-react-lite";
+import dynamic from "next/dynamic";
 
+import { useModalState } from "@/hooks/useModalState";
 import { useStore } from "@/lib/mobx/provider";
 import { cx } from "@/lib/utils";
 
@@ -12,25 +14,32 @@ import { AddButton } from "../AddButton";
 
 import style from "./style.module.css";
 
-const EmployeesList: React.FC<React.PropsWithChildren> = observer(function EmployeesList({ children }) {
+const AddEmployeeModal = dynamic(() => import("../AddEmployeeModal").then((module) => module.AddEmployeeModal), {
+  ssr: false,
+});
+
+const EmployeesList = observer(function EmployeesList() {
   const { staffStore } = useStore();
 
   return (
-    <ScrollableList className={cx(style["employees-list"], "container")} direction="horizontal">
+    <>
       {staffStore.employeesList.map((employee) => (
         <EmployeeWidget employee={employee} key={employee.id} />
       ))}
-      {children}
-    </ScrollableList>
+    </>
   );
 });
 
 export const Employees = () => {
+  const { isOpen, open: openModal, close: closeModal } = useModalState();
+
   return (
     <>
-      <EmployeesList>
-        <AddButton onClick={() => {}} />
-      </EmployeesList>
+      <ScrollableList className={cx(style["employees-list"], "container")} direction="horizontal">
+        <EmployeesList />
+        <AddButton onClick={openModal} />
+      </ScrollableList>
+      <AddEmployeeModal isOpen={isOpen} onClose={closeModal} />
     </>
   );
 };

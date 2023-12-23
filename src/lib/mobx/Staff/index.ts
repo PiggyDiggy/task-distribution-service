@@ -19,4 +19,8 @@ export class StaffStore {
   get employeesList() {
     return [...this.employees.values()];
   }
+
+  addEmployee(newEmployee: Employee) {
+    this.employees.set(newEmployee.id, newEmployee);
+  }
 }

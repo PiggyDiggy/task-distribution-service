@@ -3,6 +3,7 @@ import { Employee, Scope, Task } from "@prisma/client";
 import { enableStaticRendering } from "mobx-react-lite";
 
 import { CreateTaskBody, createTask } from "@/api/tasks";
+import { CreateEmployeeBody, createEmployee } from "@/api/staff";
 
 import { TasksStore } from "./Tasks";
 import { StaffStore } from "./Staff";
@@ -31,5 +32,10 @@ export class RootStore {
   *createTask(task: CreateTaskBody): Generator<Promise<Task>, void, Task> {
     const newTask = yield createTask(task);
     this.tasksStore.addTask(newTask);
+  }
+
+  *createEmployee(employee: CreateEmployeeBody): Generator<Promise<Employee>, void, Employee> {
+    const newEmployee = yield createEmployee(employee);
+    this.staffStore.addEmployee(newEmployee);
   }
 }

@@ -11,7 +11,9 @@ export function getEmployees(params?: Record<string, any>) {
   });
 }
 
-export function createEmployee(employee: Omit<Employee, "id">) {
+export type CreateEmployeeBody = Omit<Employee, "id">;
+
+export function createEmployee(employee: CreateEmployeeBody) {
   return method<Employee>({
     path: getURL("staff"),
     method: "POST",
@@ -26,7 +28,9 @@ export function deleteEmployee(id: number) {
   });
 }
 
-export function patchEmployee(id: number, updateFields: Partial<Employee>) {
+export type PatchEmployeeBody = Partial<Employee>;
+
+export function patchEmployee(id: number, updateFields: PatchEmployeeBody) {
   return method<Employee>({
     path: getURL(`staff/${id}`),
     method: "PATCH",
