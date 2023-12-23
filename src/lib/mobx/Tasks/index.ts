@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { Task } from "@prisma/client";
 
 import { createCollection } from "@/lib/utils";
+import { processTask } from "@/api/tasks";
 
 import { RootStore } from "..";
 
@@ -23,5 +24,9 @@ export class TasksStore {
 
   get openTasksList() {
     return [...this.openTasks.values()];
+  }
+
+  addTask(newTask: Task) {
+    this.openTasks.set(newTask.id, processTask(newTask));
   }
 }

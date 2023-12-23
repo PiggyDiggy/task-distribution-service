@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
       },
     });
     revalidateTag("tasks");
+    revalidateTag("scope");
     return NextResponse.json(created, { status: 201 });
   } catch {
     return new NextResponse("Invalid data provided", { status: 400 });
