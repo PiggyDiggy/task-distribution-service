@@ -1,7 +1,9 @@
 import { RequestMethod } from "@/types";
 
 export function getURL(path: string) {
-  const origin = typeof global.window === "undefined" ? process.env.origin : window.location.origin;
+  const { PROTOCOL: protocol, NEXT_PUBLIC_API_URL: host } = process.env;
+
+  const origin = typeof global.window === "undefined" ? `${protocol}://${host}` : "";
   return `${origin}/api/${path}`;
 }
 
