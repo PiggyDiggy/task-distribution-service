@@ -12,7 +12,7 @@ import style from "./style.module.css";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
-const Input: React.FC<InputProps> = observer((props) => {
+const Input: React.FC<InputProps> = observer(function Input(props) {
   const {
     uiStore: { inputValue, isOpen, setInputValue, setIsOpen },
     domainStore: { options },
@@ -67,7 +67,12 @@ type Props = {
   label?: string;
 } & InputProps;
 
-export const InputWithSelect: React.FC<Props> = React.memo(({ options = [], className, label, ...inputProps }) => {
+export const InputWithSelect: React.FC<Props> = React.memo(function InputWithSelect({
+  options = [],
+  className,
+  label,
+  ...inputProps
+}) {
   return (
     <SelectInputStoreContext options={options}>
       <div className={cx(className, style.wrapper)}>

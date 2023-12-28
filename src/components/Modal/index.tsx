@@ -49,6 +49,6 @@ type DialogProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-Modal.Dialog = ({ children, className }) => {
+Modal.Dialog = function ModalDialog({ children, className }) {
   return <div className={cx(style.dialog, className)}>{children}</div>;
 };

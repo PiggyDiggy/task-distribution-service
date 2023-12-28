@@ -46,7 +46,7 @@ export const ScrollableList: React.FC<React.PropsWithChildren<Props>> = ({
     return () => {
       scrollable.removeEventListener("scroll", scrollHandler);
     };
-  }, []);
+  }, [direction]);
 
   useLayoutEffect(() => {
     const scrollable = scrollableRef.current;
@@ -59,7 +59,7 @@ export const ScrollableList: React.FC<React.PropsWithChildren<Props>> = ({
         Math.floor((direction === "vertical" ? scrollable.offsetHeight : scrollable.offsetWidth) * 0.09)
       }px`
     );
-  }, []);
+  }, [direction, maskFadeWidth]);
 
   return (
     <ul
