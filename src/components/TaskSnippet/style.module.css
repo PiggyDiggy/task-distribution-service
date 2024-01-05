@@ -5,10 +5,20 @@
   padding: 8px 12px;
   background-color: var(--background-lighter);
   margin-bottom: 12px;
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+}
+
+.snippet:hover {
+  background-color: var(--background-lighter-hover);
 }
 
 .snippet:nth-child(2n) {
   background-color: var(--background-grey);
+}
+
+.snippet:nth-child(2n):hover {
+  background-color: var(--background-grey-hover);
 }
 
 .snippet_title {
