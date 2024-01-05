@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { Employee } from "@prisma/client";
 
 import { createCollection } from "@/lib/utils";
+import { CreateEmployeeBody, createEmployee } from "@/api/staff";
 
 import { RootStore } from "..";
 
@@ -26,5 +27,11 @@ export class StaffStore {
 
   addEmployee(newEmployee: Employee) {
     this.employees.set(newEmployee.id, newEmployee);
+  }
+
+  *createEmployee(employee: CreateEmployeeBody): Generator<Promise<Employee>, void, Employee> {
+    const newEmployee = yield createEmployee(employee);
+    this.addEmployee(newEmployee);
+    this.rootStore.addScope(employee.scopeName);
   }
 }

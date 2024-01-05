@@ -14,7 +14,10 @@ type Props = {
 };
 
 export const AddEmployeeModal: React.FC<Props> = ({ isOpen, onClose }) => {
-  const { scopeNames, createEmployee } = useStore();
+  const {
+    scopeNames,
+    staffStore: { createEmployee },
+  } = useStore();
 
   const handleSubmit = (data: FormData) => {
     const employee = Object.fromEntries(data.entries()) as RawData<Employee>;

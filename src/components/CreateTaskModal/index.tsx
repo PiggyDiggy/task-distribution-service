@@ -20,7 +20,10 @@ type Props = {
 const valueOptions = [1, 2, 4, 8, 16].map((value) => pluralize(value, "балл", "балла", "баллов"));
 
 export const CreateTaskModal: React.FC<Props> = observer(({ isOpen, onClose }) => {
-  const { scopeNames, createTask } = useStore();
+  const {
+    scopeNames,
+    tasksStore: { createTask },
+  } = useStore();
 
   const handleSubmit = (data: FormData) => {
     const task = Object.fromEntries(data.entries()) as RawData<Task>;
@@ -53,13 +56,7 @@ export const CreateTaskModal: React.FC<Props> = observer(({ isOpen, onClose }) =
           name="value"
           readOnly
         />
-        <InputWithSelect
-          className={style.deadline}
-          label="Срок выполнения"
-          type="date"
-          name="deadline"
-          required
-        />
+        <InputWithSelect className={style.deadline} label="Срок выполнения" type="date" name="deadline" required />
       </div>
     </FormModal>
   );
