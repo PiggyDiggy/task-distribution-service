@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { Employee, Task } from "@prisma/client";
 
 import { createCollection } from "@/lib/utils";
-import { CreateTaskBody, createTask, patchTask, processTask } from "@/api/tasks";
+import { CreateTaskBody, methodCreateTask, methodPatchTask, processTask } from "@/api/tasks";
 
 import { RootStore } from "..";
 
@@ -36,7 +36,7 @@ export class TasksStore {
   }
 
   *createTask(task: CreateTaskBody): Generator<Promise<Task>, void, Task> {
-    const newTask = yield createTask(task);
+    const newTask = yield methodCreateTask(task);
     this.addTask(newTask);
     this.rootStore.addScope(newTask.scopeName);
   }
@@ -51,6 +51,6 @@ export class TasksStore {
 
     this.openTasks.delete(task.id);
 
-    yield patchTask(task.id, { executorId: employee.id, status: "inProgress" });
+    yield methodPatchTask(task.id, { executorId: employee.id, status: "inProgress" });
   }
 }

@@ -1,7 +1,8 @@
 import { Employee } from "@prisma/client";
+
 import { method, getURL } from ".";
 
-export function getEmployees(params?: Record<string, any>) {
+export function methodGetEmployees(params?: Record<string, any>) {
   return method<Employee[]>({
     path: getURL("staff"),
     params,
@@ -13,7 +14,7 @@ export function getEmployees(params?: Record<string, any>) {
 
 export type CreateEmployeeBody = Omit<Employee, "id">;
 
-export function createEmployee(employee: CreateEmployeeBody) {
+export function methodCreateEmployee(employee: CreateEmployeeBody) {
   return method<Employee>({
     path: getURL("staff"),
     method: "POST",
@@ -21,7 +22,7 @@ export function createEmployee(employee: CreateEmployeeBody) {
   });
 }
 
-export function deleteEmployee(id: number) {
+export function methodDeleteEmployee(id: string) {
   return method({
     path: getURL(`staff/${id}`),
     method: "DELETE",
@@ -30,7 +31,7 @@ export function deleteEmployee(id: number) {
 
 export type PatchEmployeeBody = Partial<Employee>;
 
-export function patchEmployee(id: number, updateFields: PatchEmployeeBody) {
+export function methodPatchEmployee(id: string, updateFields: PatchEmployeeBody) {
   return method<Employee>({
     path: getURL(`staff/${id}`),
     method: "PATCH",

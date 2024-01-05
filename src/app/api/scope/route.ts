@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
-import { prisma } from "@/lib/prisma";
+import { getScopes } from "@/lib/prisma/api/scope";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  return NextResponse.json(await prisma.scope.findMany());
+  return NextResponse.json(await getScopes());
 }

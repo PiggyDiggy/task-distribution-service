@@ -2,15 +2,15 @@ import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { Employee } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import { deleteEmployee, updateEmployee } from "@/lib/prisma/api/staff";
 
 type Params = { params: { id: string } };
 
 export async function PATCH(request: NextRequest, { params }: Params) {
-  const data: Partial<Employee> = await request.json();
+  const { id, ...data }: Employee = await request.json();
 
   try {
-    const updated = await prisma.employee.update({ where: { id: params.id }, data });
+    const updated = await updateEmployee(params.id, data);
     revalidateTag("staff");
     return NextResponse.json(updated);
   } catch (e: any) {
@@ -23,7 +23,7 @@ export async function PATCH(request: NextRequest, { params }: Params) {
 
 export async function DELETE(request: NextRequest, { params }: Params) {
   try {
-    await prisma.employee.delete({ where: { id: params.id } });
+    await deleteEmployee(params.id);
     revalidateTag("staff");
     return new NextResponse(null, { status: 204 });
   } catch {

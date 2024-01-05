@@ -1,4 +1,5 @@
 import { Task } from "@prisma/client";
+
 import { method, getURL } from ".";
 
 export const processTask = ({ createdAt, deadline, ...rest }: Task) => ({
@@ -7,7 +8,7 @@ export const processTask = ({ createdAt, deadline, ...rest }: Task) => ({
   ...rest,
 });
 
-export function getTasks(params?: Record<string, any>) {
+export function methodGetTasks(params?: Record<string, any>) {
   return method<Task[]>({
     path: getURL("tasks"),
     params,
@@ -22,7 +23,7 @@ export function getTasks(params?: Record<string, any>) {
 
 export type CreateTaskBody = Omit<Task, "id" | "status" | "executorId" | "createdAt">;
 
-export function createTask(task: CreateTaskBody) {
+export function methodCreateTask(task: CreateTaskBody) {
   return method<Task>({
     path: getURL("tasks"),
     method: "POST",
@@ -30,7 +31,7 @@ export function createTask(task: CreateTaskBody) {
   });
 }
 
-export function deleteTask(id: number) {
+export function methodDeleteTask(id: number) {
   return method({
     path: getURL(`tasks/${id}`),
     method: "DELETE",
@@ -39,7 +40,7 @@ export function deleteTask(id: number) {
 
 export type PatchTaskBody = Partial<Task>;
 
-export function patchTask(id: number, updateFields: PatchTaskBody) {
+export function methodPatchTask(id: number, updateFields: PatchTaskBody) {
   return method<Task>({
     path: getURL(`tasks/${id}`),
     method: "PATCH",
