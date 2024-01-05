@@ -15,7 +15,12 @@ type Props = {
 export const TaskOverview: React.FC<Props> = ({ task, isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <TaskWidget className={style.widget} as="div" task={task} />
+      <TaskWidget
+        className={style.widget}
+        renderDescription={() => <p className={style.widget__description}>{task.description}</p>}
+        as="div"
+        task={task}
+      />
     </Modal>
   );
 };
