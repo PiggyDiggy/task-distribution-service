@@ -1,0 +1,10 @@
+.spinner {
+  transform-origin: center;
+  animation: spinner-spin 1s ease-in-out infinite alternate;
+}
+
+@keyframes spinner-spin {
+  100% {
+    rotate: 720deg;
+  }
+}

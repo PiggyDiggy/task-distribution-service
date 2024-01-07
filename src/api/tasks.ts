@@ -28,6 +28,7 @@ export function methodCreateTask(task: CreateTaskBody) {
     path: getURL("tasks"),
     method: "POST",
     body: task,
+    process: processTask,
   });
 }
 

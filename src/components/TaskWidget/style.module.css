@@ -1,3 +1,8 @@
+.wrapper {
+  position: relative;
+  color: white;
+}
+
 .task-widget {
   display: flex;
   flex-direction: column;
@@ -8,6 +13,11 @@
   background-color: var(--background-contrast);
   color: white;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.task-widget_loading {
+  opacity: 0.5;
 }
 
 .task-widget__title {
@@ -35,4 +45,10 @@
 
 .task-widget__deadline {
   font-weight: 300;
+}
+
+.task-widget__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
 }

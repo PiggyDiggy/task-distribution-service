@@ -12,7 +12,7 @@ export function methodGetEmployees(params?: Record<string, any>) {
   });
 }
 
-export type CreateEmployeeBody = Omit<Employee, "id">;
+export type CreateEmployeeBody = Omit<Employee, "id" | "photo">;
 
 export function methodCreateEmployee(employee: CreateEmployeeBody) {
   return method<Employee>({

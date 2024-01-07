@@ -6,8 +6,11 @@ import { CreateEmployeeBody, methodCreateEmployee } from "@/api/staff";
 
 import { RootStore } from "..";
 
+const getOptimisticEmployee = (employee: CreateEmployeeBody) => ({...employee, id: crypto.randomUUID(), photo: ""});
+
 export class StaffStore {
   employees: Map<string, Employee>;
+  loadingEmployees: Employee[] = [];
   rootStore: RootStore;
 
   constructor(employees: Employee[], rootStore: RootStore) {
@@ -25,13 +28,24 @@ export class StaffStore {
     return this.employees.get(employeeId) as NonNullable<Employee>;
   }
 
-  addEmployee(newEmployee: Employee) {
+  private addEmployee(newEmployee: Employee) {
     this.employees.set(newEmployee.id, newEmployee);
   }
 
+  private deleteLoadingEmployee(employeeId: string) {
+    this.loadingEmployees = this.loadingEmployees.filter(employee => employee.id !== employeeId);
+  }
+
   *createEmployee(employee: CreateEmployeeBody): Generator<Promise<Employee>, void, Employee> {
-    const newEmployee = yield methodCreateEmployee(employee);
-    this.addEmployee(newEmployee);
-    this.rootStore.addScope(employee.scopeName);
+    const optimisticEmployee = getOptimisticEmployee(employee);
+    this.loadingEmployees.push(optimisticEmployee);
+
+    try {
+      const newEmployee = yield methodCreateEmployee(employee);
+      this.addEmployee(newEmployee);
+      this.rootStore.addScope(employee.scopeName);
+    } finally {
+      this.deleteLoadingEmployee(optimisticEmployee.id);
+    }
   }
 }

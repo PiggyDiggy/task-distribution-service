@@ -30,6 +30,20 @@ const EmployeesList = observer(function EmployeesList() {
   );
 });
 
+const LoadingEmployeesList = observer(function LoadingEmployeesList() {
+  const {
+    staffStore: { loadingEmployees },
+  } = useStore();
+
+  return (
+    <>
+      {loadingEmployees.map((employee) => (
+        <EmployeeWidget employee={employee} key={employee.id} loading />
+      ))}
+    </>
+  );
+});
+
 export const Employees = () => {
   const { isOpen, open: openModal, close: closeModal } = useModalState();
 
@@ -37,6 +51,7 @@ export const Employees = () => {
     <>
       <ScrollableList className={cx(style["employees-list"], "container")} direction="horizontal">
         <EmployeesList />
+        <LoadingEmployeesList />
         <AddButton onClick={openModal} />
       </ScrollableList>
       <AddEmployeeModal isOpen={isOpen} onClose={closeModal} />

@@ -1,3 +1,9 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  color: white;
+}
+
 .employee {
   --border-radius: 26px;
   display: flex;
@@ -10,6 +16,10 @@
   color: white;
   flex-shrink: 0;
   box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.employee_loading {
+  opacity: 0.5;
 }
 
 .employee__heading {
@@ -51,4 +61,10 @@
 
 .employee__tasks {
   padding: 24px 22px;
+}
+
+.employee__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
 }
