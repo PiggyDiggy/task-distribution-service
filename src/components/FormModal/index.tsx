@@ -22,9 +22,9 @@ export const FormModal: React.FC<Props> = ({ children, submitText, isOpen, onClo
     <Modal isOpen={isOpen} onClose={onClose}>
       <form className={style.form} onSubmit={handleSubmit}>
         <Modal.Dialog className={style.modal}>{children}</Modal.Dialog>
-        <Button type="submit" className={style.button}>
+        <Modal.Button type="submit" className={style.button}>
           {submitText}
-        </Button>
+        </Modal.Button>
       </form>
     </Modal>
   );

@@ -1,13 +1,14 @@
 .wrapper {
   position: relative;
   color: white;
+  height: 280px;
+  width: 280px;
 }
 
 .task-widget {
   display: flex;
   flex-direction: column;
-  height: 280px;
-  width: 280px;
+  height: 100%;
   border-radius: 26px;
   padding: 18px 22px;
   background-color: var(--background-contrast);

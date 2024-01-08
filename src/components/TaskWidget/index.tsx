@@ -22,8 +22,8 @@ export const TaskWidget: React.FC<Props> = ({
   as: Tag = "li",
   renderDescription,
 }) => (
-  <Tag className={style.wrapper}>
-    <div className={cx(style["task-widget"], className, { [style["task-widget_loading"]]: loading })}>
+  <Tag className={cx(style.wrapper, className)}>
+    <div className={cx(style["task-widget"], { [style["task-widget_loading"]]: loading })}>
       <p className={style["task-widget__title"]}>{task.title}</p>
       {renderDescription?.() || <p className={style["task-widget__description"]}>{task.description}</p>}
       <div className={style["task-widget__bottom-row"]}>

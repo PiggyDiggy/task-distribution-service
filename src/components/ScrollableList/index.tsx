@@ -52,13 +52,12 @@ export const ScrollableList: React.FC<React.PropsWithChildren<Props>> = ({
     const scrollable = scrollableRef.current;
     if (!scrollable) return;
 
-    scrollable.setAttribute(
-      "style",
-      `--fade-width: ${
-        maskFadeWidth ??
-        Math.floor((direction === "vertical" ? scrollable.offsetHeight : scrollable.offsetWidth) * 0.09)
-      }px`
+    const fadeWidth = Math.min(
+      Math.floor((direction === "vertical" ? scrollable.offsetHeight : scrollable.offsetWidth) * 0.09),
+      50
     );
+
+    scrollable.setAttribute("style", `--fade-width: ${maskFadeWidth ?? fadeWidth}px`);
   }, [direction, maskFadeWidth]);
 
   return (

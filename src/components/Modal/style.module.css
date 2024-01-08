@@ -29,7 +29,9 @@
   padding: 28px 32px;
 }
 
-/* Transitions */
+/* --- Transitions --- */
+
+/* Modal */
 
 .modal_enter {
   opacity: 0;
@@ -49,6 +51,8 @@
   opacity: 0;
 }
 
+/* Dialog */
+
 .modal_enter .dialog {
   translate: 0 -10%;
 }
@@ -65,4 +69,24 @@
 .modal_exit-active .dialog {
   transition: translate 0.2s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   translate: 0 -10%;
+}
+
+/* Button */
+
+.modal_enter .button {
+  scale: 0.65;
+}
+
+.modal_enter-active .button {
+  transition: scale 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  scale: 1;
+}
+
+.modal_exit .button {
+  scale: 1;
+}
+
+.modal_exit-active .button {
+  transition: 0.2s scale cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  scale: 0.65;
 }

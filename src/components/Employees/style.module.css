@@ -3,4 +3,10 @@
   gap: 36px;
   list-style-type: none;
   padding-bottom: 16px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.employees-list::-webkit-scrollbar {
+  display: none;
 }

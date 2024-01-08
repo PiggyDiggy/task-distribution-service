@@ -4,16 +4,20 @@ import { CSSTransition } from "react-transition-group";
 
 import { cx } from "@/lib/utils";
 
+import { Button } from "../Button";
+
 import style from "./style.module.css";
 
-type Props = React.PropsWithChildren<{
+type ChildrenWithClassNameProps = React.PropsWithChildren<{ className?: string }>;
+
+type Props = ChildrenWithClassNameProps & {
   isOpen: boolean;
   onClose(): void;
-  className?: string;
-}>;
+};
 
 type Component = React.FC<Props> & {
   Dialog: React.FC<DialogProps>;
+  Button: React.FC<ButtonProps>;
 };
 
 export const Modal: Component = ({ children, isOpen, onClose, className }) => {
@@ -46,10 +50,14 @@ export const Modal: Component = ({ children, isOpen, onClose, className }) => {
   );
 };
 
-type DialogProps = React.PropsWithChildren<{
-  className?: string;
-}>;
+type DialogProps = ChildrenWithClassNameProps;
 
 Modal.Dialog = function ModalDialog({ children, className }) {
   return <div className={cx(style.dialog, className)}>{children}</div>;
+};
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+Modal.Button = function ModalButton({ children, className }) {
+  return <Button className={cx(style.button, className)}>{children}</Button>;
 };
