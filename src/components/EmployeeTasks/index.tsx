@@ -6,7 +6,7 @@ import { cx } from "@/lib/utils";
 import tasksPlaceholder from "@/assets/tasks-placeholder.svg";
 
 import { TaskSnippet } from "../TaskSnippet";
-import { ScrollableList } from "../ScrollableList";
+import { ScrollableList } from "../ui/ScrollableList";
 
 import style from "./style.module.css";
 

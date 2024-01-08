@@ -7,7 +7,7 @@ import { useStore } from "@/lib/mobx/provider";
 import { cx } from "@/lib/utils";
 import placeholderAvatar from "@/assets/employee-placeholder.svg";
 
-import { Spinner } from "../Spinner";
+import { Spinner } from "../ui/Spinner";
 import { EmployeeTasks } from "../EmployeeTasks";
 
 import style from "./style.module.css";

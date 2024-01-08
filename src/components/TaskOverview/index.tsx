@@ -1,7 +1,7 @@
 import React from "react";
 import { Task } from "@prisma/client";
 
-import { Modal } from "../Modal";
+import { Modal } from "../ui/Modal";
 import { TaskWidget } from "../TaskWidget";
 
 import style from "./style.module.css";

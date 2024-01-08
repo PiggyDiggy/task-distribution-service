@@ -4,8 +4,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 
 import { useStore } from "@/lib/mobx/provider";
-
-import { Button } from "../Button";
+import { Button } from "@/components/ui/Button";
 
 import style from "./style.module.css";
 

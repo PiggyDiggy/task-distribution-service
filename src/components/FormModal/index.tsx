@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Modal } from "../Modal";
-import { Button } from "../Button";
+import { Modal } from "../ui/Modal";
 
 import style from "./style.module.css";
 

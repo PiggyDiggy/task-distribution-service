@@ -3,7 +3,7 @@ import { Task } from "@prisma/client";
 
 import { pluralize, formatDate, cx } from "@/lib/utils";
 
-import { Spinner } from "../Spinner";
+import { Spinner } from "../ui/Spinner";
 
 import style from "./style.module.css";
 

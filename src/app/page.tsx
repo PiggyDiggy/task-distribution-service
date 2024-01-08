@@ -2,10 +2,10 @@ import { getTasks } from "@/lib/prisma/api/tasks";
 import { getEmployees } from "@/lib/prisma/api/staff";
 import { getScopes } from "@/lib/prisma/api/scope";
 import { RootStoreProvider } from "@/lib/mobx/provider";
-import { Tasks } from "@/components/Tasks";
-import { Section } from "@/components/Section";
-import { Employees } from "@/components/Employees";
-import { DistributeButton } from "@/components/DistributeButton";
+import { Section } from "@/components/ui/Section";
+import { Tasks } from "@/features/Tasks";
+import { Employees } from "@/features/Employees";
+import { DistributeButton } from "@/features/DistributeButton";
 
 import styles from "./page.module.css";
 

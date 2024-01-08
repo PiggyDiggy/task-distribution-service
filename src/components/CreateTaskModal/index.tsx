@@ -6,8 +6,8 @@ import { useStore } from "@/lib/mobx/provider";
 import { pluralize } from "@/lib/utils";
 import { RawData } from "@/types";
 
-import { InputWithSelect } from "../InputWithSelect";
-import { Textarea } from "../Textarea";
+import { InputWithSelect } from "../ui/InputWithSelect";
+import { Textarea } from "../ui/Textarea";
 import { FormModal } from "../FormModal";
 
 import style from "./style.module.css";

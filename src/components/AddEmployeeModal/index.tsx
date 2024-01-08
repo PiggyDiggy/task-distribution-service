@@ -4,8 +4,8 @@ import { Employee } from "@prisma/client";
 import { useStore } from "@/lib/mobx/provider";
 import { RawData } from "@/types";
 
-import { Textarea } from "../Textarea";
-import { InputWithSelect } from "../InputWithSelect";
+import { Textarea } from "../ui/Textarea";
+import { InputWithSelect } from "../ui/InputWithSelect";
 import { FormModal } from "../FormModal";
 
 type Props = {
