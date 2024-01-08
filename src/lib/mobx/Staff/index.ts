@@ -6,7 +6,7 @@ import { CreateEmployeeBody, methodCreateEmployee } from "@/api/staff";
 
 import { RootStore } from "..";
 
-const getOptimisticEmployee = (employee: CreateEmployeeBody) => ({...employee, id: crypto.randomUUID(), photo: ""});
+const getOptimisticEmployee = (employee: CreateEmployeeBody) => ({ ...employee, id: crypto.randomUUID(), photo: "" });
 
 export class StaffStore {
   employees: Map<string, Employee>;
@@ -33,7 +33,7 @@ export class StaffStore {
   }
 
   private deleteLoadingEmployee(employeeId: string) {
-    this.loadingEmployees = this.loadingEmployees.filter(employee => employee.id !== employeeId);
+    this.loadingEmployees = this.loadingEmployees.filter((employee) => employee.id !== employeeId);
   }
 
   *createEmployee(employee: CreateEmployeeBody): Generator<Promise<Employee>, void, Employee> {

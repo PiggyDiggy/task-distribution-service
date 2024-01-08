@@ -5,6 +5,7 @@ import { Employee } from "@prisma/client";
 
 import { useStore } from "@/lib/mobx/provider";
 import { cx } from "@/lib/utils";
+import placeholderAvatar from "@/assets/employee-placeholder.svg";
 
 import { Spinner } from "../Spinner";
 import { EmployeeTasks } from "../EmployeeTasks";
@@ -24,13 +25,17 @@ export const EmployeeWidget: React.FC<Props> = observer(function EmployeeWidget(
     <li className={style.wrapper}>
       <div className={cx(style.employee, { [style.employee_loading]: loading })}>
         <div className={style.employee__heading}>
-          <Image
-            className={style.employee__thumbnail}
-            width={100}
-            height={100}
-            src={employee.photo}
-            alt="person photo"
-          />
+          {loading ? (
+            <div className={cx(style.employee__thumbnail, style.employee__thumbnail_loading)} />
+          ) : (
+            <Image
+              className={cx(style.employee__thumbnail, { [style["employee__thumbnail-placeholder"]]: !employee.photo })}
+              width={100}
+              height={100}
+              src={employee.photo || placeholderAvatar}
+              alt="person photo"
+            />
+          )}
           <div className={style.employee__info}>
             <div className={style.employee__name}>{employee.name}</div>
             <div className={style.employee__label}>{employee.label}</div>

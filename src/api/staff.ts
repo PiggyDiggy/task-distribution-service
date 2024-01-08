@@ -38,3 +38,19 @@ export function methodPatchEmployee(id: string, updateFields: PatchEmployeeBody)
     body: updateFields,
   });
 }
+
+type UnsplashResponse = {
+  urls: {
+    thumb: string;
+  };
+};
+
+export function methodUnsplashRandomPhoto() {
+  return method<UnsplashResponse, string>({
+    path: "https://api.unsplash.com/photos/random",
+    fetchOptions: { headers: { Authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}` } },
+    process(response) {
+      return response.urls.thumb;
+    },
+  });
+}

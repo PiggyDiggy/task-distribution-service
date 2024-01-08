@@ -37,10 +37,23 @@
 }
 
 .employee__thumbnail {
+  height: 100px;
+  width: 100px;
   flex-shrink: 0;
   border-radius: 100%;
   border: 2px solid white;
   object-fit: cover;
+  background-color: var(--accent-hover);
+}
+
+.employee__thumbnail_loading {
+  animation: pulse 0.4s linear alternate infinite;
+}
+
+.employee__thumbnail-placeholder {
+  padding-top: 16px;
+  object-fit: contain;
+  object-position: bottom;
 }
 
 .employee__name {
@@ -67,4 +80,10 @@
   position: absolute;
   inset: 0;
   margin: auto;
+}
+
+@keyframes pulse {
+  100% {
+    filter: brightness(1.2);
+  }
 }
