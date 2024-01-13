@@ -23,7 +23,7 @@ export function methodCreateEmployee(employee: CreateEmployeeBody) {
 }
 
 export function methodDeleteEmployee(id: string) {
-  return method({
+  return method<null>({
     path: getURL(`staff/${id}`),
     method: "DELETE",
   });

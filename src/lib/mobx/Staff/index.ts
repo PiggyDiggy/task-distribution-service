@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { Employee } from "@prisma/client";
 
 import { createCollection } from "@/lib/utils";
-import { CreateEmployeeBody, methodCreateEmployee } from "@/api/staff";
+import { CreateEmployeeBody, methodCreateEmployee, methodDeleteEmployee } from "@/api/staff";
 
 import { RootStore } from "..";
 
@@ -46,6 +46,19 @@ export class StaffStore {
       this.rootStore.addScope(employee.scopeName);
     } finally {
       this.deleteLoadingEmployee(optimisticEmployee.id);
+    }
+  }
+
+  *deleteEmployee(employeeId: string): Generator<Promise<null>, void, null> {
+    const employee = this.employees.get(employeeId);
+
+    try {
+      this.employees.delete(employeeId);
+      yield methodDeleteEmployee(employeeId);
+    } catch {
+      if (employee) {
+        this.employees.set(employeeId, employee);
+      }
     }
   }
 }

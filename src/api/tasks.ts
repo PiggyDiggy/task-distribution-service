@@ -33,7 +33,7 @@ export function methodCreateTask(task: CreateTaskBody) {
 }
 
 export function methodDeleteTask(id: number) {
-  return method({
+  return method<null>({
     path: getURL(`tasks/${id}`),
     method: "DELETE",
   });

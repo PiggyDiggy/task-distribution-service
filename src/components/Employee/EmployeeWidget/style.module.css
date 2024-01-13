@@ -82,6 +82,21 @@
   margin: auto;
 }
 
+@media screen and (hover: hover) {
+  .employee__delete-icon {
+    --ease-back: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    opacity: 0;
+    scale: 0;
+    transition: opacity 0.2s var(--ease-back), scale 0.2s var(--ease-back), background-color 0.1s ease-out;
+  }
+
+  .wrapper:hover .employee__delete-icon {
+    --ease-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 @keyframes pulse {
   100% {
     filter: brightness(1.2);

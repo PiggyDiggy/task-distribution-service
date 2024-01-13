@@ -14,3 +14,16 @@
 .button:hover {
   background-color: var(--accent-hover);
 }
+
+.button_inverted {
+  background-color: transparent;
+  color: white;
+  transition: color 0.2s ease-out;
+  box-shadow: none;
+  padding: 0;
+}
+
+.button_inverted:hover {
+  background-color: transparent;
+  color: var(--text-light-hover);
+}

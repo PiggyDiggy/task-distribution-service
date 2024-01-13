@@ -5,6 +5,8 @@
   padding-bottom: 16px;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding-top: 16px;
+  margin-top: -16px;
 }
 
 .employees-list::-webkit-scrollbar {

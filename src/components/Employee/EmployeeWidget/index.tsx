@@ -6,6 +6,7 @@ import { Employee } from "@prisma/client";
 import { useStore } from "@/lib/mobx/provider";
 import { cx } from "@/lib/utils";
 import { Spinner } from "@/components/ui/Spinner";
+import { DeleteModal } from "@/components/DeleteModal";
 import placeholderAvatar from "@/assets/employee-placeholder.svg";
 
 import { EmployeeTasks } from "../EmployeeTasks";
@@ -18,8 +19,17 @@ type Props = {
 };
 
 export const EmployeeWidget: React.FC<Props> = observer(function EmployeeWidget({ employee, loading = false }) {
-  const { tasksStore } = useStore();
+  const {
+    tasksStore,
+    staffStore: { deleteEmployee },
+  } = useStore();
   const employeeTasks = tasksStore.getEmployeeTasks(employee.id);
+
+  const renderDeleteModalDescription = () => (
+    <>
+      Вы точно хотите удалить сотрудника <strong>{employee.name}</strong>
+    </>
+  );
 
   return (
     <li className={style.wrapper}>
@@ -43,6 +53,14 @@ export const EmployeeWidget: React.FC<Props> = observer(function EmployeeWidget(
           </div>
         </div>
         <EmployeeTasks tasks={employeeTasks} />
+        {!loading && (
+          <DeleteModal
+            title="Удаление сотрудника"
+            renderDescription={renderDeleteModalDescription}
+            onDelete={() => deleteEmployee(employee.id)}
+            className={style["employee__delete-icon"]}
+          />
+        )}
       </div>
       {loading && <Spinner className={style["employee__spinner"]} />}
     </li>

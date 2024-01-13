@@ -16,6 +16,9 @@
   --accent-color: #6c63ff;
   --accent-hover: #817aff;
   --text-muted: #999999;
+  --danger-color: #ff6363;
+  --danger-hover: #ff7070;
+  --text-light-hover: #ccc;
   font-size: 62.5%;
 }
 
