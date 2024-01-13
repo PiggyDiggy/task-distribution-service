@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-import { EmployeeWidget } from "@/components/EmployeeWidget";
+import { EmployeeWidget } from "@/components/Employee/EmployeeWidget";
 import { useStore } from "@/lib/mobx/provider";
 
 export const LoadingEmployeesList = observer(function LoadingEmployeesList() {

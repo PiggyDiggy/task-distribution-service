@@ -3,10 +3,9 @@ import Image from "next/image";
 import { Task } from "@prisma/client";
 
 import { cx } from "@/lib/utils";
+import { TaskSnippet } from "@/components/Task/TaskSnippet";
+import { ScrollableList } from "@/components/ui/ScrollableList";
 import tasksPlaceholder from "@/assets/tasks-placeholder.svg";
-
-import { TaskSnippet } from "../TaskSnippet";
-import { ScrollableList } from "../ui/ScrollableList";
 
 import style from "./style.module.css";
 

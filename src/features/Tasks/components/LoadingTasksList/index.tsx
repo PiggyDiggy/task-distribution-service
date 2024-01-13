@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-import { TaskWidget } from "@/components/TaskWidget";
+import { TaskWidget } from "@/components/Task/TaskWidget";
 import { useStore } from "@/lib/mobx/provider";
 
 export const LoadingTasksList = observer(function LoadingTasksList() {

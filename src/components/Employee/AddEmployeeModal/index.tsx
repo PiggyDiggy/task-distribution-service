@@ -3,10 +3,9 @@ import { Employee } from "@prisma/client";
 
 import { useStore } from "@/lib/mobx/provider";
 import { RawData } from "@/types";
-
-import { Textarea } from "../ui/Textarea";
-import { InputWithSelect } from "../ui/InputWithSelect";
-import { FormModal } from "../FormModal";
+import { Textarea } from "@/components/ui/Textarea";
+import { InputWithSelect } from "@/components/ui/InputWithSelect";
+import { FormModal } from "@/components/FormModal";
 
 type Props = {
   isOpen: boolean;

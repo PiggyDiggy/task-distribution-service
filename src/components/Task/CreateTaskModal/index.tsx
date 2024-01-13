@@ -5,10 +5,9 @@ import { Task } from "@prisma/client";
 import { useStore } from "@/lib/mobx/provider";
 import { pluralize } from "@/lib/utils";
 import { RawData } from "@/types";
-
-import { InputWithSelect } from "../ui/InputWithSelect";
-import { Textarea } from "../ui/Textarea";
-import { FormModal } from "../FormModal";
+import { InputWithSelect } from "@/components/ui/InputWithSelect";
+import { Textarea } from "@/components/ui/Textarea";
+import { FormModal } from "@/components/FormModal";
 
 import style from "./style.module.css";
 

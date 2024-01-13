@@ -5,9 +5,9 @@ import { Employee } from "@prisma/client";
 
 import { useStore } from "@/lib/mobx/provider";
 import { cx } from "@/lib/utils";
+import { Spinner } from "@/components/ui/Spinner";
 import placeholderAvatar from "@/assets/employee-placeholder.svg";
 
-import { Spinner } from "../ui/Spinner";
 import { EmployeeTasks } from "../EmployeeTasks";
 
 import style from "./style.module.css";

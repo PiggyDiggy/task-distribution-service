@@ -2,8 +2,7 @@ import React from "react";
 import { Task } from "@prisma/client";
 
 import { pluralize, formatDate, cx } from "@/lib/utils";
-
-import { Spinner } from "../ui/Spinner";
+import { Spinner } from "@/components/ui/Spinner";
 
 import style from "./style.module.css";
 

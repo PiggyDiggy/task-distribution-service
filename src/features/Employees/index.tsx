@@ -13,7 +13,7 @@ import { LoadingEmployeesList } from "./components/LoadingEmployeesList";
 import style from "./style.module.css";
 
 const AddEmployeeModal = dynamic(
-  () => import("@/components/AddEmployeeModal").then((module) => module.AddEmployeeModal),
+  () => import("@/components/Employee/AddEmployeeModal").then((module) => module.AddEmployeeModal),
   {
     ssr: false,
   }
