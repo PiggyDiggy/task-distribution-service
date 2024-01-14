@@ -9,8 +9,6 @@ import { DistributeButton } from "@/features/DistributeButton";
 
 import styles from "./page.module.css";
 
-export const fetchCache = "force-no-store";
-
 export default async function Home() {
   const [tasks, employees, scopes] = await Promise.all([getTasks(), getEmployees(), getScopes()]);
 
