@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-import { EmployeeWidget } from "@/components/Employee/EmployeeWidget";
+import { EmployeeWidgetSkeleton } from "@/components/Employee/EmployeeWidget";
 import { useStore } from "@/lib/mobx/provider";
 
 export const LoadingEmployeesList = observer(function LoadingEmployeesList() {
@@ -11,7 +11,7 @@ export const LoadingEmployeesList = observer(function LoadingEmployeesList() {
   return (
     <>
       {loadingEmployees.map((employee) => (
-        <EmployeeWidget employee={employee} key={employee.id} loading />
+        <EmployeeWidgetSkeleton employee={employee} key={employee.id} />
       ))}
     </>
   );

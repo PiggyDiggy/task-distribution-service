@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 
-import { TaskWidget } from "@/components/Task/TaskWidget";
+import { TaskWidgetSkeleton } from "@/components/Task/TaskWidget";
 import { useStore } from "@/lib/mobx/provider";
 
 export const LoadingTasksList = observer(function LoadingTasksList() {
@@ -11,7 +11,7 @@ export const LoadingTasksList = observer(function LoadingTasksList() {
   return (
     <>
       {loadingTasks.map((task) => (
-        <TaskWidget key={task.id} task={task} loading />
+        <TaskWidgetSkeleton key={task.id} task={task} />
       ))}
     </>
   );

@@ -2,7 +2,6 @@ import React from "react";
 import { Task } from "@prisma/client";
 
 import { pluralize, formatDate, cx } from "@/lib/utils";
-import { Spinner } from "@/components/ui/Spinner";
 
 import style from "./style.module.css";
 import { DeleteModal } from "@/components/DeleteModal";
@@ -12,7 +11,6 @@ import { useStore } from "@/lib/mobx/provider";
 type Props = {
   task: Task;
   className?: string;
-  loading?: boolean;
   as?: keyof React.ReactHTML;
   renderDescription?: () => React.ReactNode;
 };
@@ -20,7 +18,6 @@ type Props = {
 export const TaskWidget: React.FC<Props> = observer(function TaskWidget({
   task,
   className,
-  loading = false,
   as: Tag = "li",
   renderDescription,
 }) {
@@ -28,9 +25,15 @@ export const TaskWidget: React.FC<Props> = observer(function TaskWidget({
     tasksStore: { deleteTask },
   } = useStore();
 
+  const renderDeleteModalDescription = () => (
+    <>
+      Вы уверены, что хотите удалить задачу <strong>{task.title}</strong>?
+    </>
+  );
+
   return (
     <Tag className={cx(style.wrapper, className)}>
-      <div className={cx(style["task-widget"], { [style["task-widget_loading"]]: loading })}>
+      <div className={style["task-widget"]}>
         <p className={style["task-widget__title"]}>{task.title}</p>
         {renderDescription?.() || <p className={style["task-widget__description"]}>{task.description}</p>}
         <div className={style["task-widget__bottom-row"]}>
@@ -38,19 +41,12 @@ export const TaskWidget: React.FC<Props> = observer(function TaskWidget({
           <span className={style["task-widget__deadline"]}>{formatDate(task.deadline, "long")}</span>
         </div>
       </div>
-      {!loading && (
-        <DeleteModal
-          title="Удаление задачи"
-          renderDescription={() => (
-            <>
-              Вы уверены, что хотите удалить задачу <strong>{task.title}</strong>?
-            </>
-          )}
-          onDelete={() => deleteTask(task)}
-          className={style["task-widget__delete-icon"]}
-        />
-      )}
-      {loading && <Spinner className={style["task-widget__spinner"]} />}
+      <DeleteModal
+        title="Удаление задачи"
+        renderDescription={renderDeleteModalDescription}
+        onDelete={() => deleteTask(task)}
+        className={style["task-widget__delete-icon"]}
+      />
     </Tag>
   );
 });
