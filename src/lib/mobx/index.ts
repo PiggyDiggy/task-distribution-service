@@ -14,11 +14,8 @@ export class RootStore {
   staffStore: StaffStore;
   scopes: Scope[];
 
-  constructor(tasks: Task[], employees: Employee[], employeeTasks: Task[][], scopes: Scope[]) {
-    const employeeTasksCollection = employeeTasks.reduce((collection, tasks, i) => {
-      return collection.set(employees[i].id, tasks);
-    }, new Map<string, Task[]>());
-    this.tasksStore = new TasksStore(tasks, employeeTasksCollection, this);
+  constructor(tasks: Task[], employees: Employee[], scopes: Scope[]) {
+    this.tasksStore = new TasksStore(tasks, this);
     this.staffStore = new StaffStore(employees, this);
     this.scopes = scopes;
     makeAutoObservable(this, {}, { autoBind: true });
@@ -35,7 +32,7 @@ export class RootStore {
   }
 
   distributeTasks() {
-    const scopeTasks = getScopeMap(this.tasksStore.openTasksList, this.tasksStore.getTask);
+    const scopeTasks = getScopeMap(this.tasksStore.undistributedTasks, this.tasksStore.getTask);
     const scopeEmployees = getScopeMap(this.staffStore.employeesList, this.staffStore.getEmployee);
 
     scopeTasks.forEach((tasks, scope) => {

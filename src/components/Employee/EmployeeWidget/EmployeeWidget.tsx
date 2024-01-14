@@ -21,7 +21,7 @@ export const EmployeeWidget: React.FC<Props> = observer(function EmployeeWidget(
     tasksStore,
     staffStore: { deleteEmployee },
   } = useStore();
-  const employeeTasks = tasksStore.getEmployeeTasks(employee.id);
+  const employeeTasks = tasksStore.getEmployeeTasks(employee.id).map(tasksStore.getTask);
 
   const renderDeleteModalDescription = () => (
     <>

@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/Button";
 
 import style from "./style.module.css";
 
-export const DistributeButton = observer(() => {
+export const DistributeButton = observer(function DistributeButton() {
   const { distributeTasks, tasksStore, staffStore } = useStore();
 
   const existsUndistributedTask = () => {
     const scopes = new Set<string>();
 
-    for (const taskId of tasksStore.openTasksList) {
+    for (const taskId of tasksStore.undistributedTasks) {
       const task = tasksStore.getTask(taskId);
       scopes.add(task.scopeName);
     }

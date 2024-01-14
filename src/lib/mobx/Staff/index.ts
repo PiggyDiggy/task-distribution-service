@@ -55,6 +55,7 @@ export class StaffStore {
     try {
       this.employees.delete(employeeId);
       yield methodDeleteEmployee(employeeId);
+      this.rootStore.tasksStore.unassignTasks(employeeId);
     } catch {
       if (employee) {
         this.employees.set(employeeId, employee);

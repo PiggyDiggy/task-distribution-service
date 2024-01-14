@@ -8,21 +8,19 @@ import { RootStore } from ".";
 const StoreContext = React.createContext<RootStore>({} as RootStore);
 
 type ProviderProps = React.PropsWithChildren<{
-  openTasks: Task[];
+  tasks: Task[];
   employees: Employee[];
-  employeeTasks: Task[][];
   scopes: Scope[];
 }>;
 
 export const RootStoreProvider: React.FC<ProviderProps> = ({
   children,
-  openTasks,
+  tasks,
   employees,
-  employeeTasks,
   scopes,
 }) => {
   return (
-    <StoreContext.Provider value={new RootStore(openTasks, employees, employeeTasks, scopes)}>
+    <StoreContext.Provider value={new RootStore(tasks, employees, scopes)}>
       {children}
     </StoreContext.Provider>
   );

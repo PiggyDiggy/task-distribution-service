@@ -10,11 +10,11 @@ function getTaskStatus(status?: string) {
   return ["open", "inProgress", "closed"].includes(status) ? status : undefined;
 }
 
-export function getTasks(params: { status?: TaskStatus; executor?: string }) {
+export function getTasks(params?: { status?: TaskStatus; executor?: string | null }) {
   return prisma.task.findMany({
     where: {
-      status: getTaskStatus(params.status) as TaskStatus,
-      executorId: params.executor,
+      status: getTaskStatus(params?.status) as TaskStatus,
+      executorId: params?.executor,
     },
     orderBy: {
       createdAt: "asc",

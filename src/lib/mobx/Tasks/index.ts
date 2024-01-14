@@ -14,16 +14,31 @@ const getOptimisticTask = (task: CreateTaskBody) => ({
   executorId: null,
 });
 
+const getEmployeeTasksMap = (tasks: Task[]) => {
+  const map = new Map<string, number[]>();
+
+  for (const { id, executorId } of tasks) {
+    if (executorId) {
+      if (!map.has(executorId)) {
+        map.set(executorId, []);
+      }
+      map.get(executorId)!.push(id);
+    }
+  }
+
+  return map;
+};
+
 export class TasksStore {
-  openTasks: Map<number, Task>;
-  employeeTasks: Map<string, Task[]>;
+  tasks: Map<number, Task>;
+  employeeTasks: Map<string, number[]>;
   loadingTasks: Task[] = [];
   rootStore: RootStore;
 
-  constructor(openTasks: Task[], employeeTasks: Map<string, Task[]>, rootStore: RootStore) {
+  constructor(tasks: Task[], rootStore: RootStore) {
     this.rootStore = rootStore;
-    this.openTasks = createCollection(openTasks);
-    this.employeeTasks = employeeTasks;
+    this.tasks = createCollection(tasks);
+    this.employeeTasks = getEmployeeTasksMap(tasks);
 
     makeAutoObservable(this, {}, { autoBind: true });
   }
@@ -32,28 +47,50 @@ export class TasksStore {
     return this.employeeTasks.get(employeeId) || [];
   }
 
-  get openTasksList() {
-    return [...this.openTasks.keys()];
+  get undistributedTasks() {
+    const tasks: number[] = [];
+
+    for (const [taskId, task] of this.tasks) {
+      if (!task.executorId) {
+        tasks.push(taskId);
+      }
+    }
+
+    return tasks;
   }
 
   getTask(taskId: number) {
-    return this.openTasks.get(taskId) as NonNullable<Task>;
+    return this.tasks.get(taskId) as NonNullable<Task>;
+  }
+
+  unassignTasks(employeeId: string) {
+    this.getEmployeeTasks(employeeId).forEach((taskId) => (this.getTask(taskId).executorId = null));
+  }
+
+  private _deleteTask(task: Task) {
+    if (task.executorId) {
+      const filteredTasksList = this.employeeTasks.get(task.executorId)!.filter((taskId) => task.id !== taskId);
+      this.employeeTasks.set(task.executorId, filteredTasksList);
+    }
+    this.tasks.delete(task.id);
   }
 
   private addTask(newTask: Task) {
-    this.openTasks.set(newTask.id, newTask);
+    if (newTask.executorId) {
+      this._assignTaskToEmployee(newTask.id, newTask.executorId);
+    }
+    this.tasks.set(newTask.id, newTask);
   }
 
   private deleteLoadingTask(taskId: number) {
     this.loadingTasks = this.loadingTasks.filter((task) => task.id !== taskId);
   }
 
-  private deleteEmployeeTask(task: Task) {
-    if (!task.executorId) return;
-
-    const employeeTasks = this.getEmployeeTasks(task.executorId);
-    const modifiedTasksList = employeeTasks.filter((employeeTask) => employeeTask.id !== task.id);
-    this.employeeTasks.set(task.executorId, modifiedTasksList);
+  private _assignTaskToEmployee(taskId: number, employeeId: string) {
+    if (!this.employeeTasks.has(employeeId)) {
+      this.employeeTasks.set(employeeId, []);
+    }
+    this.employeeTasks.get(employeeId)!.push(taskId);
   }
 
   *createTask(task: CreateTaskBody): Generator<Promise<Task>, void, Task> {
@@ -72,33 +109,17 @@ export class TasksStore {
   *assignTaskToEmployee(task: Task, employee: Employee) {
     task.executorId = employee.id;
 
-    if (!this.employeeTasks.has(employee.id)) {
-      this.employeeTasks.set(employee.id, []);
-    }
-    this.employeeTasks.get(employee.id)!.push(task);
-
-    this.openTasks.delete(task.id);
+    this._assignTaskToEmployee(task.id, employee.id);
 
     yield methodPatchTask(task.id, { executorId: employee.id, status: "inProgress" });
   }
 
   *deleteTask(task: Task): Generator<Promise<null>, void, null> {
-    if (task.executorId) {
-      const employeeCurrentTasksList = this.getEmployeeTasks(task.executorId);
-
-      try {
-        this.deleteEmployeeTask(task);
-        yield methodDeleteTask(task.id);
-      } catch {
-        this.employeeTasks.set(task.executorId, employeeCurrentTasksList);
-      }
-    } else {
-      try {
-        this.openTasks.delete(task.id);
-        yield methodDeleteTask(task.id);
-      } catch {
-        this.openTasks.set(task.id, task)
-      }
+    try {
+      this._deleteTask(task);
+      yield methodDeleteTask(task.id);
+    } catch {
+      this.addTask(task);
     }
   }
 }

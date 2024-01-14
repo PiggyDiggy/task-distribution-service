@@ -8,7 +8,7 @@ export const TasksList = observer(function TasksList() {
 
   return (
     <>
-      {tasksStore.openTasksList.map((taskId) => (
+      {tasksStore.undistributedTasks.map((taskId) => (
         <TaskWidget key={taskId} task={tasksStore.getTask(taskId)} />
       ))}
     </>
