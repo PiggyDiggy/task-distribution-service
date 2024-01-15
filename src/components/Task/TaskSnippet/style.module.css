@@ -24,6 +24,10 @@
 .snippet_title {
   margin-bottom: 4px;
   padding-right: 48px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .snippet__expand-icon{
