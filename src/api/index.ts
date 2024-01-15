@@ -1,7 +1,12 @@
 import { RequestMethod } from "@/types";
 
 export function getURL(path: string) {
-  return `/api/${path}`;
+  const origin =
+    typeof window === "undefined" && process.env.USE_PYTHON_SERVER
+      ? `${process.env.PROTOCOL}://${process.env.NEXT_PUBLIC_API_URL}`
+      : "";
+
+  return `${origin}/api/${path}`;
 }
 
 export async function method<T, R = T>({
