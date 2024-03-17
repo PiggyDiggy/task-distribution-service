@@ -6,10 +6,20 @@ import { methodGetTasks } from "./tasks";
 import { methodGetEmployees } from "./staff";
 import { methodGetScopes } from "./scope";
 
-export const getInitialState = () => {
-  const promises = process.env.USE_PYTHON_SERVER
-    ? ([methodGetTasks(), methodGetEmployees(), methodGetScopes()] as const)
-    : ([getTasks(), getEmployees(), getScopes()] as const);
+const getEmptyArray = () => [];
 
-  return Promise.all(promises);
+export const getInitialState = () => {
+  if (process.env.USE_PYTHON_SERVER) {
+    return Promise.all([
+      methodGetTasks().catch(getEmptyArray),
+      methodGetEmployees().catch(getEmptyArray),
+      methodGetScopes().catch(getEmptyArray),
+    ])
+  }
+
+  return Promise.all([
+    getTasks().catch(getEmptyArray),
+    getEmployees().catch(getEmptyArray),
+    getScopes().catch(getEmptyArray),
+  ]);
 };

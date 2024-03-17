@@ -11,7 +11,7 @@ db_url = os.getenv("POSTGRES_URL")
 def create_connection():
     return psycopg2.connect(db_url)
 
-from app.views import scope, staff, tasks
+from app.views import scope, staff, tasks, home
 from app.queries.create_tables import create_tables
 
 create_tables()
